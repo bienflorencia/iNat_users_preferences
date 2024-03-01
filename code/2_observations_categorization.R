@@ -38,13 +38,17 @@ class_obs <- species_list %>%
 
 animals <- species_list %>% 
   filter(taxon_class_name == "Aves" | taxon_class_name == "Amphibia" | 
-           taxon_class_name == "Mammalia" | taxon_class_name == "Reptilia")
+           taxon_class_name == "Mammalia" | 
+           taxon_class_name == "Reptilia") %>% 
+  group_by(taxon_species_name) %>% count()
 
 write.csv(animals,"data/animals_list.csv")
 
 
 plants <- species_list %>% 
   filter(taxon_family_name == "Fabaceae" | taxon_family_name == "Cactaceae" | 
-           taxon_family_name == "Asteraceae"|taxon_family_name == "Solanaceae")
+           taxon_family_name == "Asteraceae"|
+           taxon_family_name == "Solanaceae") %>% 
+  group_by(taxon_species_name) %>% count()
 
 write.csv(plants,"data/plants_list.csv")
