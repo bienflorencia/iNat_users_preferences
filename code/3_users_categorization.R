@@ -6,6 +6,8 @@ library(lubridate)
 library(httr)
 library(jsonlite)
 
+observations <- read_csv('data/observations_21-02-24.csv')
+
 # USERS CATEGORIZATION ---------------------------------------------------------
 
 users_dataset <- observations %>% st_drop_geometry() %>% 
