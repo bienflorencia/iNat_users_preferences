@@ -71,7 +71,7 @@ get_observers_num_observations <- function(user_login_list){
     num_results <- nrow(observers_num_observations) + 1
   }
   return(observers_num_observations)
-}
+  }
 
 
 observers_num_observations <- get_observers_num_observations(users_dataset$user_login)
@@ -107,7 +107,7 @@ foreign <- natuy_users %>%
   filter(uruguayan == "no") %>% 
   group_by(uruguayan)
 
-users_fn <- filter(usuarios_dataset, user_login %in% foreign$user_login)
+users_fn <- filter(users_dataset, user_login %in% foreign$user_login)
 
 
 write.csv(users_uy, "data/users_uy.csv")
