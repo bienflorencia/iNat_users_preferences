@@ -25,6 +25,8 @@ users_dataset <- observations %>% st_drop_geometry() %>%
                                              observations_by_time>0.2,
                                            "intermediate", "beginner")))
 
+write.csv(users_dataset, "data/users_dataset.csv")
+
 # USERS NATIONALITY ------------------------------------------------------------
 
 ## Function using iNAT API https://api.inaturalist.org/v1/docs/
