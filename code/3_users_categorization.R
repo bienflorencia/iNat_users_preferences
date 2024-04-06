@@ -114,3 +114,6 @@ users_fn <- filter(users_dataset, user_login %in% foreign$user_login)
 
 write.csv(users_uy, "data/users_uy.csv")
 write.csv(users_fn, "data/users_fn.csv")
+
+
+users_uy %>% group_by(user_category) %>% count() %>% arrange(desc(n))
