@@ -17,9 +17,9 @@ animals_thesis <-
 ## Let's join them with the new tables for this article
 
 plants_thesis <- plants_thesis %>% 
-  select(taxon_species_name, Distribution, Habito1, IUCNglobal)
+  select(taxon_family_name,taxon_species_name, Distribution, Habito1, IUCNglobal)
 animals_thesis <- animals_thesis %>% 
-  select(taxon_species_name, Distribution, Size, IUCNglobal)
+  select(taxon_class_name, taxon_species_name, Distribution, Size, IUCNglobal)
 
 plants_traits <- left_join(plants, plants_thesis)
 animals_traits <- left_join(animals, animals_thesis)
