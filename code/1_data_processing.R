@@ -4,7 +4,10 @@ library(sf)
 sf::sf_use_s2(FALSE)
 
 
-observations <- read_csv('data/observations_21-02-24.csv')
+GBIF_iNat_data <- read_tsv("data/GBIF_iNat_data.csv", guess_max = 31000)
+
+# guess_max es para analizar todas las columnas y que no adivine el formato
+# de los datos
 
 
 # FILTERING OBSERVACIONS -------------------------------------------------------
