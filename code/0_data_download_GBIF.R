@@ -6,17 +6,20 @@
 
 library(rgbif)
 library(tidyverse)
+library(taxize)
 
 ########################################
 ### GBIF Credentials (from gbif.org)
-GBIF_USER <- '' # your gbif.org username 
-GBIF_PWD <- '' # your gbif.org password
-GBIF_EMAIL <- '' # your email 
+GBIF_USER <- 'montielrodrigo0' # your gbif.org username 
+GBIF_PWD <- 'Rodrinmb1' # your gbif.org password
+GBIF_EMAIL <- 'montielrodrigo0@gmail.com' # your email 
 
 ### GBIF key for iNaturalist's dataset
-iNat_KEY <- datasets(data='all', query='iNaturalist')$data %>% 
-  filter(title == 'iNaturalist Research-grade Observations') %>% 
-  pull(key)
+##iNat_KEY <- dataset(data='all', query='iNaturalist')$data %>% 
+##  filter(title == 'iNaturalist Research-grade Observations') %>% 
+##  pull(key)
+
+iNat_KEY <- "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
 
 ### GBIF keys for the studied taxa 
 
@@ -74,31 +77,31 @@ occ_download(pred_in('taxonKey', GBIFtaxonKeys$TAXON_KEY),
 
 # <<gbif download>>
 # Your download is being processed by GBIF:
-#   https://www.gbif.org/occurrence/download/0037149-240229165702484
+#   https://www.gbif.org/occurrence/download/0149540-240321170329656
 # Most downloads finish within 15 min.
 # Check status with
-# occ_download_wait('0037149-240229165702484')
+# occ_download_wait('0149540-240321170329656')
 # After it finishes, use
-# d <- occ_download_get('0037149-240229165702484') %>%
+# d <- occ_download_get('0149540-240321170329656') %>%
 #   occ_download_import()
 # to retrieve your download.
 # Download Info:
-#   Username: florencia_grattarola
-# E-mail: flograttarola@gmail.com
+#   Username: montielrodrigo0
+# E-mail: montielrodrigo0@gmail.com
 # Format: SIMPLE_CSV
-# Download key: 0037149-240229165702484
-# Created: 2024-03-08T14:40:34.013+00:00
+# Download key: 0149540-240321170329656
+# Created: 2024-04-12T12:54:00.691+00:00
 # Citation Info:  
 #   Please always cite the download DOI when using this data.
 # https://www.gbif.org/citation-guidelines
-# DOI: 10.15468/dl.f297bm
+# DOI: 10.15468/dl.3df2fp
 # Citation:
-#   GBIF Occurrence Download https://doi.org/10.15468/dl.f297bm Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-03-08
+#   GBIF Occurrence Download https://doi.org/10.15468/dl.3df2fp Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-04-12
 
 
 ### Check the status
-occ_download_wait('0037149-240229165702484')
+occ_download_wait('0149540-240321170329656')
 
 ### Download the data
-GBIF_iNat_data <- occ_download_get('0037149-240229165702484') %>%
+GBIF_iNat_data <- occ_download_get('0149540-240321170329656') %>%
   occ_download_import()
