@@ -1,27 +1,24 @@
-########################################
-# title: iNaturalist data download from GBIF
-# author: Florencia Grattarola
-# date: 2024-03-08
-########################################
+# PACKAGES & DATA --------------------------------------------------------------
 
 library(rgbif)
 library(tidyverse)
 library(taxize)
 
-########################################
-### GBIF Credentials (from gbif.org)
-GBIF_USER <- 'montielrodrigo0' # your gbif.org username 
-GBIF_PWD <- 'Rodrinmb1' # your gbif.org password
-GBIF_EMAIL <- 'montielrodrigo0@gmail.com' # your email 
+# DATA DOWNLOAD ---------------------------------------------------------------- 
 
-### GBIF key for iNaturalist's dataset
-##iNat_KEY <- dataset(data='all', query='iNaturalist')$data %>% 
-##  filter(title == 'iNaturalist Research-grade Observations') %>% 
-##  pull(key)
+## GBIF Credentials (from gbif.org)
+GBIF_USER <- '' # your gbif.org username 
+GBIF_PWD <- '' # your gbif.org password
+GBIF_EMAIL <- '' # your email 
 
-iNat_KEY <- "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+## GBIF key for iNaturalist's dataset
+iNat_KEY <- dataset_search(query='iNaturalist')$data %>% 
+  filter(title == 'iNaturalist Research-grade Observations') %>%
+  pull(datasetKey)
 
-### GBIF keys for the studied taxa 
+###iNat_KEY <- "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+
+## GBIF keys for the studied taxa 
 
 get_TAXON_KEY <- function(taxonList) {
   species_TAXON_KEY <- tibble(taxon=character(),
@@ -44,7 +41,7 @@ get_TAXON_KEY <- function(taxonList) {
 # and returns a data frame with the taxa and their taxon keys from GBIF 
 # (these taxon keys will be used to )
 
-taxa <- c('Aves', 'Mammalia', 'Reptilia' , 'Amphibia',
+taxa <- c('Aves', 'Mammalia', 'Squamata' , 'Amphibia',
           'Asteraceae', 'Fabaceae', 'Cactaceae', 'Solanaceae')
 
 GBIFtaxonKeys <- get_TAXON_KEY(taxa)
@@ -58,16 +55,16 @@ GBIFtaxonKeys <- get_TAXON_KEY(taxa)
 # 6 Cactaceae       2519
 # 7 Solanaceae      7717
 
-########################################
-### Exploration
+# EXPLORATION ------------------------------------------------------------------
 
-#### Data on iNat for Uruguay
+## Data on iNat for Uruguay
 occ_count(datasetKey=iNat_KEY,
           country='UY')
-# [1] 59439
 
-########################################
-### Generate data download
+# 62612
+
+
+# GENERATE DATA DOWNLOAD--------------------------------------------------------
 
 occ_download(pred_in('taxonKey', GBIFtaxonKeys$TAXON_KEY),
              pred('datasetKey', iNat_KEY),
@@ -96,7 +93,8 @@ occ_download(pred_in('taxonKey', GBIFtaxonKeys$TAXON_KEY),
 # https://www.gbif.org/citation-guidelines
 # DOI: 10.15468/dl.3df2fp
 # Citation:
-#   GBIF Occurrence Download https://doi.org/10.15468/dl.3df2fp Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-04-12
+#   GBIF Occurrence Download https://doi.org/10.15468/dl.3df2fp 
+# Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-04-12
 
 
 ### Check the status

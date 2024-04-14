@@ -16,19 +16,23 @@ animals_thesis <-
 
 ## Let's join them with the new tables for this article
 
+###Plants
 plants_thesis <- plants_thesis %>% 
-  select(taxon_family_name,taxon_species_name, Distribution, Habito1, IUCNglobal)
-animals_thesis <- animals_thesis %>% 
-  select(taxon_class_name, taxon_species_name, Distribution, Size, IUCNglobal)
+  select(family = taxon_family_name, species= taxon_species_name, 
+         Distribution, Habito1, IUCNglobal)
 
 plants_traits <- left_join(plants, plants_thesis)
+
+write.csv(plants_traits,"data/plants_traits.csv")
+
+
+###Animals
+animals_thesis <- animals_thesis %>% 
+  select(class = taxon_class_name, species= taxon_species_name, 
+         Distribution, Size, IUCNglobal)
+
 animals_traits <- left_join(animals, animals_thesis)
 
 
-write.csv(plants_traits,"data/plants_traits.csv")
 write.csv(animals_traits,"data/animals_traits.csv")
-
-
-
-
 

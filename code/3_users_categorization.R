@@ -6,21 +6,21 @@ library(lubridate)
 library(httr)
 library(jsonlite)
 
-observations <- read_csv('data/observations_21-02-24.csv')
+GBIF_iNat_data <- read_tsv("data/GBIF_iNat_data.csv")
 
 # USERS CATEGORIZATION ---------------------------------------------------------
 
-users_dataset <- observations %>% st_drop_geometry() %>% 
-  select(user_login, observed_on, created_at, user_id) %>% 
-  group_by(user_login) %>% 
-  summarise(first_record = min(created_at), 
-            last_record = max(created_at), 
+users_dataset <- GBIF_iNat_data %>% st_drop_geometry() %>% 
+  select(recordedBy, eventDate) %>% 
+  group_by(recordedBy) %>% 
+  summarise(first_record = min(eventDate), 
+            last_record = max(eventDate), 
             observations = n(), activity_time = 
               difftime(last_record,first_record, 
                        units = "days")+1, 
             observations_by_time = observations/as.numeric(activity_time)) %>% 
   mutate(user_category = ifelse(observations>=1000 & activity_time>=365 &
-                                  observations_by_time>=0.6, "experienced",
+                                  observations_by_time>=0.6, "expert",
                                     ifelse(observations>=50 & activity_time>90 & 
                                              observations_by_time>0.2,
                                            "intermediate", "beginner")))
