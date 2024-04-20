@@ -20,12 +20,16 @@ users_dataset <- GBIF_iNat_data %>% st_drop_geometry() %>%
                        units = "days")+1, 
             observations_by_time = observations/as.numeric(activity_time)) %>% 
   mutate(user_category = ifelse(observations>=1000 & activity_time>=365 &
-                                  observations_by_time>=0.6, "expert",
+                                  observations_by_time>=0.5, "expert",
                                     ifelse(observations>=50 & activity_time>90 & 
                                              observations_by_time>0.2,
                                            "intermediate", "beginner")))
 
 write.csv(users_dataset, "data/users_dataset.csv")
+
+# 1 beginner       1190
+# 2 intermediate     42
+# 3 expert            4
 
 # USERS NATIONALITY ------------------------------------------------------------
 

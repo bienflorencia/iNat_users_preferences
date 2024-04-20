@@ -41,19 +41,6 @@ get_TAXON_KEY <- function(taxonList) {
 # and returns a data frame with the taxa and their taxon keys from GBIF 
 # (these taxon keys will be used to )
 
-taxa <- c('Aves', 'Mammalia', 'Squamata' , 'Amphibia',
-          'Asteraceae', 'Fabaceae', 'Cactaceae', 'Solanaceae')
-
-GBIFtaxonKeys <- get_TAXON_KEY(taxa)
-
-#   taxon      TAXON_KEY
-# 1 Aves             212
-# 2 Mammalia         359
-# 3 Amphibia         131
-# 4 Asteraceae      3065
-# 5 Fabaceae        5386
-# 6 Cactaceae       2519
-# 7 Solanaceae      7717
 
 # EXPLORATION ------------------------------------------------------------------
 
@@ -61,45 +48,42 @@ GBIFtaxonKeys <- get_TAXON_KEY(taxa)
 occ_count(datasetKey=iNat_KEY,
           country='UY')
 
-# 62612
-
+### 62612
 
 # GENERATE DATA DOWNLOAD--------------------------------------------------------
 
-occ_download(pred_in('taxonKey', GBIFtaxonKeys$TAXON_KEY),
-             pred('datasetKey', iNat_KEY),
+occ_download(pred('datasetKey', iNat_KEY),
              pred('country', 'UY'),
              format='SIMPLE_CSV',
              user=GBIF_USER, pwd=GBIF_PWD, email=GBIF_EMAIL)
 
 # <<gbif download>>
 # Your download is being processed by GBIF:
-#   https://www.gbif.org/occurrence/download/0149540-240321170329656
+#   https://www.gbif.org/occurrence/download/0199284-240321170329656
 # Most downloads finish within 15 min.
 # Check status with
-# occ_download_wait('0149540-240321170329656')
+# occ_download_wait('0199284-240321170329656')
 # After it finishes, use
-# d <- occ_download_get('0149540-240321170329656') %>%
+# d <- occ_download_get('0199284-240321170329656') %>%
 #   occ_download_import()
 # to retrieve your download.
 # Download Info:
 #   Username: montielrodrigo0
 # E-mail: montielrodrigo0@gmail.com
 # Format: SIMPLE_CSV
-# Download key: 0149540-240321170329656
-# Created: 2024-04-12T12:54:00.691+00:00
+# Download key: 0199284-240321170329656
+# Created: 2024-04-20T19:54:56.551+00:00
 # Citation Info:  
 #   Please always cite the download DOI when using this data.
 # https://www.gbif.org/citation-guidelines
-# DOI: 10.15468/dl.3df2fp
+# DOI: 10.15468/dl.fwjapg
 # Citation:
-#   GBIF Occurrence Download https://doi.org/10.15468/dl.3df2fp 
-# Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-04-12
+#   GBIF Occurrence Download https://doi.org/10.15468/dl.fwjapg Accessed from R via rgbif (https://github.com/ropensci/rgbif) on 2024-04-20
 
 
 ### Check the status
-occ_download_wait('0149540-240321170329656')
+occ_download_wait('0199284-240321170329656')
 
 ### Download the data
-GBIF_iNat_data <- occ_download_get('0149540-240321170329656') %>%
+GBIF_iNat_data <- occ_download_get('0199284-240321170329656') %>%
   occ_download_import()
