@@ -28,7 +28,7 @@ GBIF_iNat_data %>%
             "Number of species" = length(unique(species)))
 
 ## Top 10 Clases
-Taxon_Clases <- GBIF_iNat_data %>%  
+GBIF_iNat_data %>%  
   filter(kingdom=='Animalia') %>% 
   group_by(kingdom, phylum, class) %>% 
   count() %>% arrange(desc(n)) %>% head(20)
@@ -36,7 +36,7 @@ Taxon_Clases <- GBIF_iNat_data %>%
 
 # GROUPS SELECTION -------------------------------------------------------------
 
-species_list <- GBIF_iNat_data %>% st_drop_geometry() %>% 
+species_list <- GBIF_iNat_data %>%
   select(recordedBy, stateProvince, taxonRank, kingdom, phylum, class,
          order, family, genus, species) %>% 
   filter(taxonRank == "SPECIES")

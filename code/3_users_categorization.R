@@ -1,7 +1,5 @@
 # PACKAGES & DATA --------------------------------------------------------------
 library(tidyverse)
-library(sf)
-sf::sf_use_s2(FALSE)
 library(lubridate)
 library(httr)
 library(jsonlite)
@@ -10,7 +8,7 @@ GBIF_iNat_data <- read_tsv("data/GBIF_iNat_data.csv")
 
 # USERS CATEGORIZATION ---------------------------------------------------------
 
-users_dataset <- GBIF_iNat_data %>% st_drop_geometry() %>% 
+users_dataset <- GBIF_iNat_data %>% 
   select(recordedBy, eventDate) %>% 
   group_by(recordedBy) %>% 
   summarise(first_record = min(eventDate), 
