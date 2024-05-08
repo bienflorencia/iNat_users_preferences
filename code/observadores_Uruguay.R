@@ -7,7 +7,8 @@ NatUY_data <- read_csv('data/NatUY_observations_03-05.csv')
 users_dataset <- NatUY_data %>% distinct(user_login)
 
 ## Function using iNAT API https://api.inaturalist.org/v1/docs/
-getObserversNumObservations <- function(user_login_list, place_id=7259){
+getObserversNumObservations <- function(user_login_list, 
+                                        place_id=7259){
   
   observers_num_observations <- tibble(user_id = numeric(), 
                                        observations_iNat = numeric(), 
