@@ -2,7 +2,7 @@
 library(tidyverse)
 
 
-GBIF_iNat_data <- read_tsv("data/GBIF_iNat_data.csv")
+natuy_data <- read_csv("data/natuy_data.csv")
 
 
 # NATUY OBSERVATIONS (WITH RESEARCH GRADE) -------------------------------------
