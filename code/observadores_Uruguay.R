@@ -75,8 +75,30 @@ usuarios_ejemplo <- c('flo_grattarola',
                       'santiagomailhos',
                       'klaus16',
                       'julian_tocce',
-                      'cameronr')
+                      'cameronr',
+                      "jodiboe",
+                      "gonzalobravopatagonia",
+                      "e-soriano-vargas",
+                      "romigaleota",
+                      "jgvelasco")
 
-getObserversNumObservations(usuarios_ejemplo) %>% 
+user_ejemplo <- getObserversNumObservations(usuarios_ejemplo) 
+
+
+user_ejemplo %>%  mutate(proportion_natuy_inat = round(observations_NatUY*100/observations_iNat, 3),
+         uruguayan = ifelse(proportion_natuy_inat>30 , 'yes', 'no')) %>% view()
+
+
+##### probando con todos los usuarios al 30% y 40%
+
+observers_num_observations <- read_csv("data/observers_num_observations.csv")
+
+uru30 <- observers_num_observations %>% 
   mutate(proportion_natuy_inat = round(observations_NatUY*100/observations_iNat, 3),
-         uruguayan = ifelse(proportion_natuy_inat>30 , 'yes', 'no'))
+         uruguayan = ifelse(proportion_natuy_inat>30 , 'yes', 'no')) %>% 
+  filter(uruguayan == "yes")
+
+uru40 <- observers_num_observations %>% 
+  mutate(proportion_natuy_inat = round(observations_NatUY*100/observations_iNat, 3),
+         uruguayan = ifelse(proportion_natuy_inat>40 , 'yes', 'no')) %>% 
+  filter(uruguayan == "yes")
