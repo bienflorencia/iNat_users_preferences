@@ -66,3 +66,17 @@ getObserversNumObservations <- function(user_login_list,
 }
 
 observers_num_observations <- getObserversNumObservations(users_dataset$user_login)
+
+
+
+##### prueba de usuarios
+
+usuarios_ejemplo <- c('flo_grattarola',
+                      'santiagomailhos',
+                      'klaus16',
+                      'julian_tocce',
+                      'cameronr')
+
+getObserversNumObservations(usuarios_ejemplo) %>% 
+  mutate(proportion_natuy_inat = round(observations_NatUY*100/observations_iNat, 3),
+         uruguayan = ifelse(proportion_natuy_inat>30 , 'yes', 'no'))
