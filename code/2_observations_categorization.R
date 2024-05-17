@@ -8,54 +8,59 @@ natuy_data <- read_csv("data/natuy_data.csv")
 # NATUY OBSERVATIONS (WITH RESEARCH GRADE) -------------------------------------
 
 ## Number of observed species
-GBIF_iNat_data %>%
-  group_by(species) %>% 
+natuy_data %>% group_by(taxon_species_name) %>% 
+  filter(quality_grade == "research") %>% 
+  filter(str_count(taxon_species_name, "\\S+") == 2) %>% 
   count() %>% arrange(desc(n)) %>% nrow()
 
-### 3854
+### 4159
 
 ## Users quantity
-GBIF_iNat_data %>%
-  group_by(recordedBy) %>% 
+natuy_data %>%
+  group_by(user_login) %>% 
   count() %>% nrow()
 
-### 1236
+### 2146
 
-## observations by Kingdom
-GBIF_iNat_data %>%
-  group_by(kingdom) %>% 
-  summarise("Number of observations"= n(),
-            "Number of species" = length(unique(species)))
 
 ## Top 10 Clases
-GBIF_iNat_data %>%  
-  filter(kingdom=='Animalia') %>% 
-  group_by(kingdom, phylum, class) %>% 
-  count() %>% arrange(desc(n)) %>% head(20)
+natuy_data %>% filter(quality_grade == "research") %>%  
+  group_by(taxon_kingdom_name,taxon_phylum_name, taxon_class_name) %>% 
+  count() %>% arrange(desc(n)) %>% head(10)
 
 
 # GROUPS SELECTION -------------------------------------------------------------
 
-species_list <- GBIF_iNat_data %>%
-  select(recordedBy, stateProvince, taxonRank, kingdom, phylum, class,
-         order, family, genus, species) %>% 
-  filter(taxonRank == "SPECIES")
+species_list <- natuy_data %>% filter(quality_grade == "research") %>% 
+  select(user_login, place_admin1_name, taxon_kingdom_name, taxon_phylum_name, 
+         taxon_class_name, taxon_order_name, taxon_family_name,
+         taxon_genus_name, taxon_species_name) %>%
+  filter(str_count(taxon_species_name, "\\S+") == 2)
+
+# (str_count(scientific_name, "\\S+") ==2) allows us to select 
+# those records that have two words in the scientific_name field
 
 write.csv(species_list,"data/species_list.csv")
 
-## Tetrapods
-animals <- species_list %>% 
-  filter(class == "Aves" | class == "Amphibia" | class == "Mammalia" | 
-           class == "Squamata" | class == "Testudines"| 
-           class == "Crocodylia" ) %>% 
-  group_by(class, species) %>% count()
 
-write.csv(animals,"data/animals_list.csv")
+## Tetrapods
+tetra <- species_list %>% 
+  filter(taxon_class_name == "Aves" |
+           taxon_class_name == "Amphibia" |
+           taxon_class_name == "Mammalia" |
+           taxon_class_name == "Reptilia") %>% 
+  group_by(taxon_class_name, taxon_species_name) %>% 
+  count()
+
+write.csv(tetra,"data/tetra_list.csv")
 
 ## Dicotyledons
-plants <- species_list %>% 
-  filter(family == "Fabaceae" | family == "Cactaceae" | 
-           family == "Asteraceae"| family == "Solanaceae") %>% 
-  group_by(family, species) %>% count()
+dico <- species_list %>% 
+  filter(taxon_family_name == "Fabaceae" | 
+           taxon_family_name == "Cactaceae" | 
+           taxon_family_name == "Asteraceae"|
+           taxon_family_name == "Solanaceae") %>% 
+  group_by(taxon_family_name, taxon_species_name) %>% 
+  count()
 
-write.csv(plants,"data/plants_list.csv")
+write.csv(dico,"data/dico_list.csv")

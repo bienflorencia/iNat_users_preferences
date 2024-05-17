@@ -1,13 +1,14 @@
 # PACKAGES & DATA --------------------------------------------------------------
 library(tidyverse)
 
-plants <- read.csv("data/plants_list.csv")
-animals <- read.csv("data/animals_list.csv")
+dico <- read.csv("data/dico_list.csv")
+tetra <- read.csv("data/tetra_list.csv")
 
 # JOINING TABLES----------------------------------------------------------------
 
-## These tables were used in my thesis and have the information on the traits 
-## of each species
+# These data tables were used in my thesis and have information 
+# about the traits of each species analyzed at the time
+
 plants_thesis <- 
   read_csv("~/GitHub/TesisNaturalistaUY/datos/Tablas/Lista_Plantas_Final.csv")
 
@@ -16,23 +17,23 @@ animals_thesis <-
 
 ## Let's join them with the new tables for this article
 
-###Plants
+## Dicotyledons
 plants_thesis <- plants_thesis %>% 
-  select(family = taxon_family_name, species= taxon_species_name, 
+  select(taxon_family_name, taxon_species_name, 
          Distribution, Habito1, IUCNglobal)
 
-plants_traits <- left_join(plants, plants_thesis)
+dico_traits <- left_join(dico, plants_thesis)
 
-write.csv(plants_traits,"data/plants_traits.csv")
+write.csv(dico_traits,"data/dico_traits.csv")
 
 
-###Animals
+## Tetrapods
 animals_thesis <- animals_thesis %>% 
-  select(class = taxon_class_name, species= taxon_species_name, 
+  select(taxon_class_name, taxon_species_name, 
          Distribution, Size, IUCNglobal)
 
-animals_traits <- left_join(animals, animals_thesis)
+tetra_traits <- left_join(tetra, animals_thesis)
 
 
-write.csv(animals_traits,"data/animals_traits.csv")
+write.csv(tetra_traits,"data/tetra_traits.csv")
 

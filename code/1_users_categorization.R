@@ -108,7 +108,7 @@ users_dataset <- natuy_data %>% group_by(user_login) %>%
                        units = "days")+1, 
             observations_by_time = observations/as.numeric(activity_time)) %>% 
   mutate(user_category = ifelse(observations>=1000 & activity_time>=365 &
-                                  observations_by_time>=0.5, "expert",
+                                  observations_by_time>=0.6, "expert",
                                 ifelse(observations>=50 & activity_time>90 & 
                                          observations_by_time>0.2,
                                        "intermediate", "beginner")))
@@ -121,6 +121,6 @@ users_dataset %>% group_by(user_category) %>% count() %>% arrange(desc(n))
 
 # user_category     n
 # beginner       2034
-# intermediate     90
-# expert           22
+# intermediate     92
+# expert           20
 
