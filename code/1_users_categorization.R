@@ -95,8 +95,6 @@ uruguayans <- observers_num_observations %>%
 
 natuy_data <- filter(natuy_data, user_login %in% uruguayans$user_login)
 
-write_csv(natuy_data, "data/natuy_data.csv")
-
 
 # USERS CATEGORIZATION ---------------------------------------------------------
 
@@ -111,7 +109,8 @@ users_dataset <- natuy_data %>% group_by(user_login) %>%
                                   observations_by_time>=0.6, "expert",
                                 ifelse(observations>=50 & activity_time>90 & 
                                          observations_by_time>0.2,
-                                       "intermediate", "beginner")))
+                                       "intermediate", "beginner"))) %>% 
+  filter(observations >= 3)
 
 write_csv(users_dataset, "data/users_dataset.csv")
 
@@ -120,7 +119,14 @@ write_csv(users_dataset, "data/users_dataset.csv")
 users_dataset %>% group_by(user_category) %>% count() %>% arrange(desc(n))
 
 # user_category     n
-# beginner       2034
+# beginner         997
 # intermediate     92
 # expert           20
 
+
+natuy_data <- left_join(natuy_data, users_dataset %>% 
+                          select(user_login, observations, user_category)) %>% 
+  filter(!is.na(user_category))
+
+
+write_csv(natuy_data, "data/natuy_data.csv")

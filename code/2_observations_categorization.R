@@ -40,7 +40,7 @@ species_list <- natuy_data %>% filter(quality_grade == "research") %>%
 # (str_count(scientific_name, "\\S+") ==2) allows us to select 
 # those records that have two words in the scientific_name field
 
-write.csv(species_list,"data/species_list.csv")
+write_csv(species_list,"data/species_list.csv")
 
 
 ## Tetrapods
@@ -52,7 +52,7 @@ tetra <- species_list %>%
   group_by(taxon_class_name, taxon_species_name) %>% 
   count()
 
-write.csv(tetra,"data/tetra_list.csv")
+write_csv(tetra,"data/tetra_list.csv")
 
 ## Dicotyledons
 dico <- species_list %>% 
@@ -63,4 +63,4 @@ dico <- species_list %>%
   group_by(taxon_family_name, taxon_species_name) %>% 
   count()
 
-write.csv(dico,"data/dico_list.csv")
+write_csv(dico,"data/dico_list.csv")
