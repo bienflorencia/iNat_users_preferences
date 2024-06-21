@@ -4,8 +4,8 @@ library(lubridate)
 library(httr)
 library(jsonlite)
 
-natuy_data <- read_csv("data/NatUY_observations_03-05.csv")
-users_dataset <- natuy_data %>% distinct(user_login)
+observations <- read_csv("data/NatUY_observations_03-05.csv")
+users_dataset <- observations %>% distinct(user_login)
 
 # USERS NATIONALITY ------------------------------------------------------------
 
@@ -93,7 +93,7 @@ uruguayans <- observers_num_observations %>%
          uruguayan = ifelse(proportion_natuy_inat>40 , 'yes', 'no')) %>% 
   filter(uruguayan == "yes")
 
-natuy_data <- filter(natuy_data, user_login %in% uruguayans$user_login)
+natuy_data <- filter(observations, user_login %in% uruguayans$user_login)
 
 
 # USERS CATEGORIZATION ---------------------------------------------------------
@@ -114,6 +114,15 @@ users_dataset <- natuy_data %>% group_by(user_login) %>%
 
 write_csv(users_dataset, "data/users_dataset.csv")
 
+
+natuy_data <- left_join(natuy_data, users_dataset %>% 
+                          select(user_login, observations, user_category)) %>% 
+  filter(!is.na(user_category))
+
+
+write_csv(natuy_data, "data/natuy_data.csv")
+
+
 ## Users per category
 
 users_dataset %>% group_by(user_category) %>% count() %>% arrange(desc(n))
@@ -122,11 +131,3 @@ users_dataset %>% group_by(user_category) %>% count() %>% arrange(desc(n))
 # beginner         997
 # intermediate     92
 # expert           20
-
-
-natuy_data <- left_join(natuy_data, users_dataset %>% 
-                          select(user_login, observations, user_category)) %>% 
-  filter(!is.na(user_category))
-
-
-write_csv(natuy_data, "data/natuy_data.csv")

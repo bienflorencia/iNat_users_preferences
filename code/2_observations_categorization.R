@@ -5,31 +5,13 @@ library(tidyverse)
 natuy_data <- read_csv("data/natuy_data.csv")
 
 
-# NATUY OBSERVATIONS (WITH RESEARCH GRADE) -------------------------------------
-
-## Number of observed species
-natuy_data %>% group_by(taxon_species_name) %>% 
-  filter(quality_grade == "research") %>% 
-  filter(str_count(taxon_species_name, "\\S+") == 2) %>% 
-  count() %>% arrange(desc(n)) %>% nrow()
-
-### 4159
-
-## Users quantity
-natuy_data %>%
-  group_by(user_login) %>% 
-  count() %>% nrow()
-
-### 2146
-
+# GROUPS SELECTION -------------------------------------------------------------
 
 ## Top 10 Clases
 natuy_data %>% filter(quality_grade == "research") %>%  
   group_by(taxon_kingdom_name,taxon_phylum_name, taxon_class_name) %>% 
   count() %>% arrange(desc(n)) %>% head(10)
 
-
-# GROUPS SELECTION -------------------------------------------------------------
 
 species_list <- natuy_data %>% filter(quality_grade == "research") %>% 
   select(user_login, place_admin1_name, taxon_kingdom_name, taxon_phylum_name, 
