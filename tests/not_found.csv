@@ -1,29 +1,122 @@
-"Class","species name","synonymous","Its in the guides:","Its in Biodiversidata:","Traits information taken from: "
-"Amphibia","Dendropsophus nanus","Hyla nana Boulenger ","no","Yes","https://www.iucnredlist.org/species/55575/61400668"
-"Amphibia","Julianus uruguayus","Scinax uruguayus","yes",,"Guia de Anfibios del Uruguay"
-"Amphibia","Melanophryniscus devincenzii",,"no","Yes","https://www.iucnredlist.org/species/54819/101423809"
-"Amphibia","Odontophrynus asper","Odontophrynus americanus","yes",,"Guia de Anfibios del Uruguay"
-"Aves","Anarhynchus collaris","Charadrius collaris","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Anarhynchus falklandicus","Charadrius falklandicus","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Anthus chii","Anthus lutescens","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Catharus ustulatus","Hylocichla swainsonii","no","no",
-"Aves","Daptrius chimachima","Milvago chimachina","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Daptrius chimango","Milvago chimango / Phalcoboenus chimango","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Fulmarus glacialis","Procellaria glacialis","no","no",
-"Aves","Gampsonyx swainsonii",,"no","no",
-"Aves","Geothlypis velata","Geothlypis aequinoctialis","yes",,"Guia Completa para conocer aves del Uruguay"
-"Aves","Ictinia plumbea","Falco plumbeus Gmelin","no","no",
-"Aves","Meleagris gallopavo",,"no","no",
-"Aves","Motacilla alba","Motacilla nilaparvata","no","no",
-"Aves","Numida meleagris","Phasianus meleagris","no","no",
-"Aves","Nymphicus hollandicus","Psittacus hollandicus","no","no",
-"Aves","Zonibyx modestus","Charadirus modestus","yes",,"Guia Completa para conocer aves del Uruguay"
-"Mammalia","Leopardus fasciatus","Leopardus colocola","no","no",
-"Mammalia","Mirounga angustirostris","Macrorhinus angustirostris ","no","no",
-"Reptilia","Adelphostigma occipitalis","Taeniophallus occipitalis","yes",,"Guia de Reptiles del Uruguay"
-"Reptilia","Caiman yacare","Crocodilus yacare","no","no",
-"Reptilia","Dibernardia poecilopogon","Taeniophallus poecilopogon","yes",,"Guia de Reptiles del Uruguay"
-"Reptilia","Dryophylax hypoconia","Thamnodynastes hypoconia","yes",,"Guia de Reptiles del Uruguay"
-"Reptilia","Mesotes strigatus","Thamnodynastes strigatus ","yes",,"Guia de Reptiles del Uruguay"
-"Reptilia","Tachymenis ocellata","Tomodon ocellatus ","yes",,"Guia de Reptiles del Uruguay"
-"Reptilia","Tropidurus catalanensis","Tropidurus torquatus","yes",,"Guia de Reptiles del Uruguay"
+"TETRAPODOS",,,,,,
+"species name","synonymous","Its in the guides:","Its in Biodiversidata:","Its in GBIF:","New record:","Traits information taken from: "
+"Dendropsophus nanus","Hyla nana Boulenger ","no","yes",,,"https://www.iucnredlist.org/species/55575/61400668"
+"Julianus uruguayus","Scinax uruguayus","yes",,,,"Guia de Anfibios del Uruguay"
+"Melanophryniscus devincenzii",,"no","yes",,,"https://www.iucnredlist.org/species/54819/101423809"
+"Odontophrynus asper","Odontophrynus americanus","yes",,,,"Guia de Anfibios del Uruguay"
+"Anarhynchus collaris","Charadrius collaris","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Anarhynchus falklandicus","Charadrius falklandicus","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Anthus chii","Anthus lutescens","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Catharus ustulatus","Hylocichla swainsonii","no","no","maybe",,"https://sib.gob.ar/especies/catharus-ustulatus?tab=info-general"
+"Daptrius chimachima","Milvago chimachina","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Daptrius chimango","Milvago chimango / Phalcoboenus chimango","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Fulmarus glacialis","Procellaria glacialis","no","no","maybe",,"https://seo.org/ave/fulmar-boreal/#"
+"Gampsonyx swainsonii",,"no","no","maybe",,"https://birdscolombia.com/2019/03/11/gavilancito-perlado-pearl-kite-gampsonyx-swainsonii/"
+"Geothlypis velata","Geothlypis aequinoctialis","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Ictinia plumbea","Falco plumbeus Gmelin","no","no","maybe",,"https://birdscolombia.com/2019/05/07/aguililla-plomiza-plumbeous-kite-ictinia-plumbea/"
+"Motacilla alba","Motacilla nilaparvata","no","no","maybe",,"https://seo.org/ave/lavandera-blanca/#"
+"Nymphicus hollandicus","Psittacus hollandicus","no","no",,,"https://animalia.bio/es/cocaktiel"
+"Zonibyx modestus","Charadirus modestus","yes",,,,"Guia Completa para conocer aves del Uruguay"
+"Leopardus fasciatus","Leopardus colocola","no","no","maybe",,"https://es.wikipedia.org/wiki/Leopardus_munoai"
+"Mirounga angustirostris","Macrorhinus angustirostris ","no","no","no",,"https://animalia.bio/index.php/es/elephant-seal"
+"Adelphostigma occipitalis","Taeniophallus occipitalis","yes",,,,"Guia de Reptiles del Uruguay"
+"Caiman yacare","Crocodilus yacare","no","no","no",,"https://animalia.bio/es/yacare-caiman"
+"Dibernardia poecilopogon","Taeniophallus poecilopogon","yes",,,,"Guia de Reptiles del Uruguay"
+"Dryophylax hypoconia","Thamnodynastes hypoconia","yes",,,,"Guia de Reptiles del Uruguay"
+"Mesotes strigatus","Thamnodynastes strigatus ","yes",,,,"Guia de Reptiles del Uruguay"
+"Tachymenis ocellata","Tomodon ocellatus ","yes",,,,"Guia de Reptiles del Uruguay"
+"PLANTAS",,,,,,
+"species name","synonymous","its in darwinion","Its in POWO","Its in GBIF:",,
+"Achyrocline alata",,,,,,
+"Adesmia muricata",,,,,,
+"Aldama breviflosculosa",,,,,,
+"Aldama nudicaulis",,,,,,
+"Aldama tuberosa",,,,,,
+"Baccharis arenaria",,,,,,
+"Baccharis cognata",,,,,,
+"Baccharis darwinii",,,,,,
+"Baccharis gibertii",,"no","no","yes",,
+"Baccharis juncea",,,,,,
+"Baccharis microcephala",,,,,,
+"Baccharis palustris",,,,"yes",,
+"Baccharis sessiliflora",,,,,,
+"Brunfelsia pauciflora",,,,,,
+"Calibrachoa scabridula",,,,,,
+"Chamaecrista rotundifolia",,,,,,
+"Chrysanthellum indicum",,,,,,
+"Ctenodon histrix",,,,,,
+"Desmanthus virgatus",,,,,,
+"Disynaphia calyculata",,,,,,
+"Disynaphia spathulata",,,,"no",,
+"Enydra fluctuans",,,,,,
+"Erythrina speciosa",,,,"no",,
+"Frailea castanea",,,,,,
+"Galinsoga quadriradiata",,,,,,
+"Gamochaeta argentina",,,,,,
+"Gamochaeta filaginea",,,,,,
+"Gamochaeta pensylvanica",,,,,,
+"Gamochaeta stachydifolia",,,,,,
+"Grindelia linearifolia",,,,,,
+"Gymnocalycium volskyi",,,,,,
+"Harrisia bonplandii",,,,,,
+"Harrisia martinii",,,,,,
+"Harrisia pomanensis",,,,,,
+"Helicotropis hookeri",,,,,,
+"Hieracium palezieuxii",,,,,,
+"Hypochaeris lutea",,,,,,
+"Indigofera sabulicola",,,,,,
+"Indigofera suffruticosa",,,,,,
+"Leptostelma tweediei",,,,,,
+"Lycium cestroides",,,,,,
+"Macroptilium erythroloma",,,,,,
+"Melanthera latifolia",,,,,,
+"Micropsis dasycarpa",,,,,,
+"Mikania sulcata",,,,,,
+"Mimosa amphigena",,,,,,
+"Mimosa balansae",,,,,,
+"Mimosa berroi",,,,,,
+"Mimosa cruenta",,,,,,
+"Mimosa incana",,,,,,
+"Mimosa reptans",,,,,,
+"Mimosa rocae",,,,,,
+"Mimosa tweedieana",,,,,,
+"Neja filiformis",,,,,,
+"Nierembergia graveolens",,,,,,
+"Nierembergia pinifolia",,,,,,
+"Noticastrum chebataroffii",,,,,,
+"Noticastrum marginatum",,,,,,
+"Noticastrum sericeum",,,,,,
+"Opuntia salmiana","Salmonopuntia salmiana",,,"no",,
+"Parodia buiningii",,,,,,
+"Parodia fusca",,,,"no",,
+"Parodia oxycostata",,,,,,
+"Parodia werdermanniana",,,,,,
+"Pascalia glauca",,,,,,
+"Praxelis clematidea",,,,,,
+"Pterocaulon alopecuroides",,,,,,
+"Rhipsalis floccosa",,,,,,
+"Rhynchosia diversifolia",,,,,,
+"Schwenckia curviflora",,,,,,
+"Senecio cisplatinus",,,,,,
+"Senecio leptolobus",,,,,,
+"Senecio mattfeldianus",,,,,,
+"Senecio saltensis",,,,,,
+"Senna hirsuta",,,,,,
+"Senna occidentalis",,,,,,
+"Senna pendula",,,,,,
+"Sessea vestioides",,,,,,
+"Solanum adscendens",,,,,,
+"Solanum betaceum",,,,,,
+"Solanum guaraniticum",,,,,,
+"Solanum pilcomayense",,,,,,
+"Solanum pygmaeum",,,,"yes",,
+"Soliva macrocephala",,,,,,
+"Sphagneticola trilobata",,,,,,
+"Tessaria dodonaeifolia",,,,,,
+"Tessaria integrifolia",,,,,,
+"Vachellia astringens",,,,,,
+"Vassobia breviflora",,,,,,
+"Vernonia echioides",,,,,,
+"Vicia graminea",,,,,,
+"Vicia montevidensis",,,,,,
+"Vicia villosa",,,,"yes",,
