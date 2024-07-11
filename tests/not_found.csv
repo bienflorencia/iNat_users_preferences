@@ -1,69 +1,69 @@
-"TETRAPODOS",,,,,
-"species name","synonymous","Primary bibliographic reference","Secondary bibliographic reference  ","New record:","Traits information taken from: "
-"Dendropsophus nanus","Hyla nana Boulenger ","no",,,"https://www.iucnredlist.org/species/55575/61400668"
-"Julianus uruguayus","Scinax uruguayus","yes",,,"Guia de Anfibios del Uruguay"
-"Melanophryniscus devincenzii",,"no",,,"https://www.iucnredlist.org/species/54819/101423809"
-"Odontophrynus asper","Odontophrynus americanus","yes",,,"Guia de Anfibios del Uruguay"
-"Anarhynchus collaris","Charadrius collaris","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Anarhynchus falklandicus","Charadrius falklandicus","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Anthus chii","Anthus lutescens","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Catharus ustulatus","Hylocichla swainsonii","no",,,"https://sib.gob.ar/especies/catharus-ustulatus?tab=info-general"
-"Daptrius chimachima","Milvago chimachina","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Daptrius chimango","Milvago chimango / Phalcoboenus chimango","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Fulmarus glacialis","Procellaria glacialis","no",,,"https://seo.org/ave/fulmar-boreal/#"
-"Gampsonyx swainsonii",,"no",,,"https://birdscolombia.com/2019/03/11/gavilancito-perlado-pearl-kite-gampsonyx-swainsonii/"
-"Geothlypis velata","Geothlypis aequinoctialis","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Ictinia plumbea","Falco plumbeus Gmelin","no",,,"https://birdscolombia.com/2019/05/07/aguililla-plomiza-plumbeous-kite-ictinia-plumbea/"
-"Motacilla alba","Motacilla nilaparvata","no",,,"https://seo.org/ave/lavandera-blanca/#"
-"Nymphicus hollandicus","Psittacus hollandicus","no",,,"https://animalia.bio/es/cocaktiel"
-"Zonibyx modestus","Charadirus modestus","yes",,,"Guia Completa para conocer aves del Uruguay"
-"Leopardus fasciatus","leopardus braccatus","no",,,"https://es.wikipedia.org/wiki/Leopardus_munoai"
-"Mirounga angustirostris","Macrorhinus angustirostris ","no",,,"https://animalia.bio/index.php/es/elephant-seal"
-"Adelphostigma occipitalis","Taeniophallus occipitalis","yes",,,"Guia de Reptiles del Uruguay"
-"Caiman yacare","Crocodilus yacare","no",,,"https://animalia.bio/es/yacare-caiman"
-"Dibernardia poecilopogon","Taeniophallus poecilopogon","yes",,,"Guia de Reptiles del Uruguay"
-"Dryophylax hypoconia","Thamnodynastes hypoconia","yes",,,"Guia de Reptiles del Uruguay"
-"Mesotes strigatus","Thamnodynastes strigatus ","yes",,,"Guia de Reptiles del Uruguay"
-"Tachymenis ocellata","Tomodon ocellatus ","yes",,,"Guia de Reptiles del Uruguay"
-"PLANTAS",,,,,
-"species name","synonymous","Primary bibliographic reference","Secondary bibliographic reference  ","New record:","Traits information taken from: "
-"Baccharis cognata","no","no","no","yes",
-"Baccharis darwinii",,"yes",,,
-"Baccharis gibertii",,,,,
-"Baccharis juncea",,,,,
-"Baccharis palustris",,,,,
-"Brunfelsia pauciflora",,,,,
-"Calibrachoa scabridula",,,,,
-"Chrysanthellum indicum",,,,,
-"Ctenodon histrix",,,,,
-"Disynaphia spathulata",,,,,
-"Enydra fluctuans","Enydra angallis","yes",,,
-"Erythrina speciosa",,,,,
-"Galinsoga quadriradiata",,,,,
-"Gymnocalycium volskyi",,,,,
-"Harrisia bonplandii",,,,,
-"Harrisia martinii",,,,,
-"Hieracium palezieuxii",,,,,
-"Macroptilium erythroloma",,,,,
-"Mimosa incana",,,,,
-"Mimosa tweedieana",,,,,
-"Noticastrum chebataroffii",,,,,
-"Noticastrum marginatum",,,,,
-"Noticastrum sericeum",,,,,
-"Opuntia salmiana",,,,,
-"Parodia fusca",,,,,
-"Parodia oxycostata",,,,,
-"Rhipsalis floccosa",,,,,
-"Schwenckia curviflora",,,,,
-"Senecio cisplatinus",,,,,
-"Senecio saltensis",,,,,
-"Senna hirsuta",,,,,
-"Solanum adscendens",,,,,
-"Solanum betaceum",,,,,
-"Solanum guaraniticum",,,,,
-"Solanum pilcomayense",,,,,
-"Solanum pygmaeum",,,,,
-"Sphagneticola trilobata",,,,,
-"Tessaria dodonaeifolia",,,,,
-"Tessaria integrifolia",,,,,
-"Vachellia astringens",,,,,
+TETRAPODOS,,,,,,,,
+species name,synonymous,Primary bibliographic reference,Secondary bibliographic reference  ,Secondary reference,New record:,Reference distribution,Reference size,Reference status
+Dendropsophus nanus,Hyla nana Boulenger ,no,yes,"Amphibian Species of the World 6.2, an Online Reference https://amphibiansoftheworld.amnh.org",no,Geographical distribution of the amphibian fauna of Uruguay https://doi.org/10.5479/si.23317515.134.1,AmphiBIO,IUCN
+Julianus uruguayus,Scinax uruguayus,yes,,,no,primary reference,,
+Melanophryniscus devincenzii,,no,yes,"Amphibian Species of the World 6.2, an Online Reference https://amphibiansoftheworld.amnh.org",no,Geographical distribution of the amphibian fauna of Uruguay https://doi.org/10.5479/si.23317515.134.1,AmphiBIO,IUCN
+Odontophrynus asper,Odontophrynus americanus,yes,,,no,primary reference,,
+Anarhynchus collaris,Charadrius collaris,yes,,,no,primary reference,,
+Anarhynchus falklandicus,Charadrius falklandicus,yes,,,no,primary reference,,
+Anthus chii,Anthus lutescens,yes,,,no,primary reference,,
+Catharus ustulatus,Hylocichla swainsonii,no,no,BirdLife International v.4 http://datazone.birdlife.org/,delete: not native,,,
+Daptrius chimachima,Milvago chimachina,yes,,,no,primary reference,,
+Daptrius chimango,Milvago chimango / Phalcoboenus chimango,yes,,,no,primary reference,,
+Fulmarus glacialis,Procellaria glacialis,no,no,BirdLife International v.4 http://datazone.birdlife.org/,delete: not native,,,
+Gampsonyx swainsonii,,no,no,BirdLife International v.4 http://datazone.birdlife.org/,yes,assumed (=1),Avonet https://opentraits.org/datasets/avonet.html,IUCN
+Geothlypis velata,Geothlypis aequinoctialis,yes,,,no,primary reference,,
+Ictinia plumbea,Falco plumbeus Gmelin,no,no,BirdLife International v.4 http://datazone.birdlife.org/,yes,assumed (=1),Avonet https://opentraits.org/datasets/avonet.html,IUCN
+Motacilla alba,Motacilla nilaparvata,no,no,BirdLife International v.4 http://datazone.birdlife.org/,delete: not native,,,
+Nymphicus hollandicus,Psittacus hollandicus,no,no,BirdLife International v.4 http://datazone.birdlife.org/,delete: not native,,,
+Zonibyx modestus,Charadirus modestus,yes,,,no,primary reference,,
+Leopardus fasciatus,Leopardus braccatus,yes,,,no,primary reference,,
+Mirounga angustirostris,Macrorhinus angustirostris ,no,no,The Mammal Diversity Database of the American Society of Mammalogists (ASM)  v1.12.1 https://doi.org/10.5281/zenodo.4139722.,yes,assumed (=1),Elton Traits https://opentraits.org/datasets/elton-traits,IUCN
+Adelphostigma occipitalis,Taeniophallus occipitalis,yes,,,no,primary reference,,
+Caiman yacare,Crocodilus yacare,no,no,The Reptile Database http://reptile-database.org/,yes,assumed (=1),Myhrvold 2015 https://esapubs.org/archive/ecol/E096/269/#data (archivo Amniote_Database_Aug_2015.csv),IUCN
+Dibernardia poecilopogon,Taeniophallus poecilopogon,yes,,,no,primary reference,,
+Dryophylax hypoconia,Thamnodynastes hypoconia,yes,,,no,primary reference,,
+Mesotes strigatus,Thamnodynastes strigatus ,yes,,,no,primary reference,,
+Tachymenis ocellata,Tomodon ocellatus ,yes,,,no,primary reference,,
+PLANTAS,,,,,,,,
+species name,synonymous,Primary bibliographic reference,Secondary bibliographic reference  ,,New record:,,,
+Baccharis cognata,no,no,no,,yes,,,
+Baccharis darwinii,,yes,,,,,,
+Baccharis gibertii,,,,,,,,
+Baccharis juncea,,,,,,,,
+Baccharis palustris,,,,,,,,
+Brunfelsia pauciflora,,,,,,,,
+Calibrachoa scabridula,,,,,,,,
+Chrysanthellum indicum,,,,,,,,
+Ctenodon histrix,,,,,,,,
+Disynaphia spathulata,,,,,,,,
+Enydra fluctuans,Enydra angallis,yes,,,,,,
+Erythrina speciosa,,,,,,,,
+Galinsoga quadriradiata,,,,,,,,
+Gymnocalycium volskyi,,,,,,,,
+Harrisia bonplandii,,,,,,,,
+Harrisia martinii,,,,,,,,
+Hieracium palezieuxii,,,,,,,,
+Macroptilium erythroloma,,,,,,,,
+Mimosa incana,,,,,,,,
+Mimosa tweedieana,,,,,,,,
+Noticastrum chebataroffii,,,,,,,,
+Noticastrum marginatum,,,,,,,,
+Noticastrum sericeum,,,,,,,,
+Opuntia salmiana,,,,,,,,
+Parodia fusca,,,,,,,,
+Parodia oxycostata,,,,,,,,
+Rhipsalis floccosa,,,,,,,,
+Schwenckia curviflora,,,,,,,,
+Senecio cisplatinus,,,,,,,,
+Senecio saltensis,,,,,,,,
+Senna hirsuta,,,,,,,,
+Solanum adscendens,,,,,,,,
+Solanum betaceum,,,,,,,,
+Solanum guaraniticum,,,,,,,,
+Solanum pilcomayense,,,,,,,,
+Solanum pygmaeum,,,,,,,,
+Sphagneticola trilobata,,,,,,,,
+Tessaria dodonaeifolia,,,,,,,,
+Tessaria integrifolia,,,,,,,,
+Vachellia astringens,,,,,,,,
