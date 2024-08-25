@@ -105,18 +105,23 @@ users_dataset <- natuy_data %>% group_by(user_login) %>%
               difftime(last_record,first_record, 
                        units = "days")+1, 
             observations_by_time = observations/as.numeric(activity_time)) %>% 
+  filter(observations >= 3) %>% 
   mutate(user_category = ifelse(observations>=1000 & activity_time>=365 &
                                   observations_by_time>=0.6, "expert",
                                 ifelse(observations>=50 & activity_time>90 & 
                                          observations_by_time>0.2,
-                                       "intermediate", "beginner"))) %>% 
-  filter(observations >= 3)
+                                       "intermediate", "beginner")))
+
+### Ranking the users
+users_dataset <- users_dataset %>% arrange(desc(observations)) %>% 
+  mutate(ranking = 1:n())
+
 
 write_csv(users_dataset, "data/users_dataset.csv")
 
 
 natuy_data <- left_join(natuy_data, users_dataset %>% 
-                          select(user_login, observations, user_category)) %>% 
+                          select(user_login, observations, user_category, ranking)) %>% 
   filter(!is.na(user_category))
 
 

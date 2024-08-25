@@ -6,37 +6,6 @@ library(RColorBrewer)
 
 dico_data <- read_csv("data/dico_data.csv")
 tetra_data <- read_csv("data/tetra_data.csv")
-
-
-tetra_data <- tetra_data %>% 
-  mutate(distribution = case_when(Distribution <= 5 ~ 'narrow',
-                                  Distribution > 5 & Distribution <= 16 ~ 'medium',
-                                  Distribution > 16 ~ 'wide', 
-                                  is.na(Distribution) ~ 'not assessed')) %>%
-  mutate(size = case_when(taxon_class_name == 'Mammalia' & 
-                            Size < 50 ~ 'small',
-                          taxon_class_name == 'Mammalia' & 
-                            Size >= 50 & Size < 200 ~ 'medium',
-                          taxon_class_name == 'Mammalia' & 
-                            Size >= 200 ~ 'large',
-                          taxon_class_name == 'Amphibia' & 
-                            Size < 5 ~ 'small',
-                          taxon_class_name == 'Amphibia' & 
-                            Size >= 5 & Size < 10 ~ 'medium',
-                          taxon_class_name == 'Amphibia' & 
-                            Size >= 10 ~ 'large',
-                          taxon_class_name == 'Reptilia' & 
-                            Size < 50 ~ 'small',
-                          taxon_class_name == 'Reptilia' & 
-                            Size >= 50 & Size < 100 ~ 'medium',
-                          taxon_class_name == 'Reptilia' & 
-                            Size >= 100 ~ 'large',
-                          taxon_class_name == 'Aves' & 
-                            Size < 20 ~ 'small',
-                          taxon_class_name == 'Aves' & 
-                            Size >= 20 & Size < 50 ~ 'medium',
-                          taxon_class_name == 'Aves' & 
-                            Size >= 50 ~ 'large'))
   
 
 # TETRAPODS GRAPHS ------------------------------------------------------------
@@ -87,7 +56,7 @@ tetra_plot_status <- tetra_data %>%
   levels = c('LC', 'NT', 'VU', 'EN', 'CR', 'DD', 'NE')))) +
   geom_bar(width = 0.5, stat = "identity", show.legend = T, 
            position = "fill") + 
-  labs(x="", y="Proportion of records", fill = "size") + 
+  labs(x="", y="Proportion of records", fill = "IUCNglobal") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
   scale_fill_brewer(palette = "BuPu", name='conservation status') + 
@@ -98,14 +67,56 @@ tetra_plot_status <- tetra_data %>%
 
 # PLANTS GRAPHS ------------------------------------------------------------
 
-dico_data %>% 
+dico_plot_group <- dico_data %>% 
   group_by(user_category,taxon_order_name) %>% count() %>% 
   ggplot(aes(x="", y=n, fill= taxon_order_name)) +
   geom_bar(width = 0.5, stat = "identity", show.legend = T,
            position = "fill") + 
-  labs(x="", y="Number of records", fill = "Class") + 
+  labs(x="", y="Number of records", fill = "Family") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = "YlOrRd", name = '') + 
+  scale_fill_brewer(palette = "Greens", name = '') + 
   theme_bw()
+
+# distribution
+dico_plot_distribution <- dico_data %>% 
+  group_by(user_category, distribution) %>% count() %>% 
+  ggplot(aes(x="", y=n, fill= factor(distribution,
+                                     levels = c('narrow', 'medium', 'wide')))) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = T, 
+           position = "fill") + 
+  labs(x="", y="Proportion of records", fill = "distribution") + 
+  facet_grid(~ factor(user_category, 
+                      levels = c('beginner', 'intermediate', 'expert'))) + 
+  scale_fill_brewer(palette = "Greens") + 
+  theme_bw() 
+
+# growth form
+dico_plot_growth_form <- dico_data %>% 
+  group_by(user_category, growth_form) %>% count() %>% 
+  ggplot(aes(x="", y=n, fill= factor(growth_form,
+                                     levels = c('tree', 'shrub', 'vine', "herb", "liana", "subshurb")))) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = T, 
+           position = "fill") + 
+  labs(x="", y="Proportion of records", fill = "growth_form") + 
+  facet_grid(~ factor(user_category, 
+                      levels = c('beginner', 'intermediate', 'expert'))) + 
+  scale_fill_brewer(palette = "Greens") + 
+  theme_bw() 
+
+
+# conservation status
+dico_plot_status <- dico_data %>% 
+  group_by(user_category, IUCNglobal) %>% count() %>% 
+  ggplot(aes(x="", y=n, fill= factor(IUCNglobal,
+                                     levels = c('LC', 'NT', 'VU', 'EN', 'CR', 'DD', 'NE')))) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = T, 
+           position = "fill") + 
+  labs(x="", y="Proportion of records", fill = "IUCNglobal") + 
+  facet_grid(~ factor(user_category, 
+                      levels = c('beginner', 'intermediate', 'expert'))) + 
+  scale_fill_brewer(palette = "Greens", name='conservation status') + 
+  theme_bw() 
+
+(dico_plot_group | dico_plot_distribution) / (dico_plot_growth_form | dico_plot_status)
 
