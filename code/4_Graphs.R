@@ -19,7 +19,7 @@ tetra_plot_group <- tetra_data %>%
   labs(x="", y="Proportion of records", fill = "Class") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = "BuPu", name = 'taxa') + 
+  scale_fill_brewer(palette = "OrRd", name = 'taxa') + 
   theme_bw() 
 
 # distribution
@@ -32,7 +32,7 @@ tetra_plot_distribution <- tetra_data %>%
   labs(x="", y="Proportion of records", fill = "distribution") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = "BuPu") + 
+  scale_fill_brewer(palette = "OrRd") + 
   theme_bw() 
 
 # size
@@ -45,7 +45,7 @@ tetra_plot_size <- tetra_data %>%
   labs(x="", y="Proportion of records", fill = "size") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = "BuPu") + 
+  scale_fill_brewer(palette = "OrRd") + 
   theme_bw() 
 
 
@@ -59,10 +59,11 @@ tetra_plot_status <- tetra_data %>%
   labs(x="", y="Proportion of records", fill = "IUCNglobal") + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = "BuPu", name='conservation status') + 
+  scale_fill_brewer(palette = "OrRd", name='conservation status') + 
   theme_bw() 
 
-(tetra_plot_group | tetra_plot_distribution) / (tetra_plot_size | tetra_plot_status)
+(tetra_plot_group | tetra_plot_distribution) / 
+  (tetra_plot_size | tetra_plot_status)
 
 
 # PLANTS GRAPHS ------------------------------------------------------------
@@ -92,17 +93,18 @@ dico_plot_distribution <- dico_data %>%
   theme_bw() 
 
 # growth form
-dico_plot_growth_form <- dico_data %>% 
-  group_by(user_category, growth_form) %>% count() %>% 
-  ggplot(aes(x="", y=n, fill= factor(growth_form,
-                                     levels = c('tree', 'shrub', 'vine', "herb", "liana", "subshurb")))) +
-  geom_bar(width = 0.5, stat = "identity", show.legend = T, 
-           position = "fill") + 
-  labs(x="", y="Proportion of records", fill = "growth_form") + 
-  facet_grid(~ factor(user_category, 
-                      levels = c('beginner', 'intermediate', 'expert'))) + 
+dico_plot_growth_form <- dico_data %>%
+  mutate(growth_form = factor(growth_form, levels = c('tree', 'shrub', 'vine', 'herb', 'liana', 'subshrub')),
+         user_category = factor(user_category, levels = c('beginner', 'intermediate', 'expert'))) %>%
+  filter(!is.na(growth_form), !is.na(user_category)) %>%  # Asegura que no haya NA en estas columnas
+  group_by(user_category, growth_form) %>%
+  count() %>%
+  ggplot(aes(x = "", y = n, fill = growth_form)) +
+  geom_bar(width = 0.5, stat = "identity", show.legend = TRUE, position = "fill") + 
+  labs(x = "", y = "Proportion of records", fill = "growth form") + 
+  facet_grid(~ user_category) + 
   scale_fill_brewer(palette = "Greens") + 
-  theme_bw() 
+  theme_bw()
 
 
 # conservation status
@@ -118,5 +120,6 @@ dico_plot_status <- dico_data %>%
   scale_fill_brewer(palette = "Greens", name='conservation status') + 
   theme_bw() 
 
-(dico_plot_group | dico_plot_distribution) / (dico_plot_growth_form | dico_plot_status)
+(dico_plot_group | dico_plot_distribution) / 
+  (dico_plot_growth_form | dico_plot_status)
 
