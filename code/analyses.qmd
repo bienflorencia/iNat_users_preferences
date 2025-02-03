@@ -165,17 +165,19 @@ observations_uy <- filter(observations, user_login %in% uruguayans$user_login)
 
 After discarding foreign users, we calculated the number of records uploaded (`observations`), the time active on the platform (taking the dates of the first and last records uploaded, `activity_time`) and the number of records over time (the total number of records uploaded divided by the active time, `observations_by_time`).
 
-With these variables we first categorised users as experts, intermediate or beginner using the following criteria:
+With these variables we first categorised users as expert, intermediate or beginner using the following criteria:
 
-- Expert: Has 1,000 records or more AND has been active on the platform for more than one year AND has a records/time ratio greater or equal to 0.6. 
-- Intermediate: Has between 50 and 1,000 records AND has been active on the platform for more than 3 months AND has a records/time ratio greater than 0.2. 
-- Beginner: Has less than 50 records AND has been active on the platform for less than 3 months  
+- **Expert**: Has 1,000 records or more AND has been active on the platform for more than one year AND has a records/time ratio greater or equal to 0.6. 
+- **Intermediate**: Has between 50 and 1,000 records AND has been active on the platform for more than 3 months AND has a records/time ratio greater than 0.2. 
+- **Beginner**: Has less than 50 records AND has been active on the platform for less than 3 months  
 
 Finally, we **ranked** the users according to their level of experience in the platform by calculating an index, such that:
 
 $Index = \text{category\_score} \cdot \left( w_1 \cdot \text{observations}_{\text{norm}} + w_2 \cdot \text{activity\_time}_{\text{norm}} + w_3 \cdot \text{observations\_by\_time}_{\text{norm}} \right)$
 
 We gave the same weight to all the variables ($w_1$ = $w_2$ = $w_3$ = `1/3`).  
+
+We used the `category_score` to account for the categories we had previously established, thus, the outcome is a ranking that has experts, intermediates, and beginners sorted within each category.
 
 ```{r}
 #| label: rank-users
@@ -325,7 +327,7 @@ tetra <- species_list %>%
   group_by(taxon_class_name, taxon_species_name) %>% 
   count()
 
-write_csv(tetra,'data/tetra_list.csv')
+# write_csv(tetra,'data/tetra_list.csv')
 
 ## plants
 dico <- species_list %>% 
@@ -336,7 +338,7 @@ dico <- species_list %>%
   group_by(taxon_family_name, taxon_species_name) %>% 
   count()
 
-write_csv(dico,'data/dico_list.csv')
+# write_csv(dico,'data/dico_list.csv')
 ```
 
 Then, using the list of species, we conducted a literature search, at the national level, to identify the following traits for each species: *geographic distribution*, *conservation status* and *size* or *growth form* depending on whether it was an animal or a plant.
@@ -407,6 +409,10 @@ And then, we classify the quantitative traits using qualitative values.
 - **Tetrapods**
 
 ```{r}
+#| label: tetrapods-data
+#| eval: true
+#| message: false
+#| warning: false
 
 # tetrapods
 tetra_data <- left_join(observations_uy, 
@@ -447,48 +453,20 @@ tetra_data <- tetra_data %>%
 # write_csv(tetra_data, "data/tetra_data.csv")
 ```
 
-
-- Plots
-
-```{r}
-#| eval: false
-
-# taxon plot
-ggplot(data = tetra_data, aes(x = size, fill=taxon)) +
-  geom_histogram(position = 'identity', 
-                 bins = 15, show.legend = F) +
-  facet_grid(~taxon, scales = 'free') +
-  scale_fill_brewer(palette = 'Reds', direction = -1) +
-  ggpubr::theme_cleveland() +
-  labs(x= 'size', y='number of records')
-
-# distribution plot
-ggplot(data = tetra_data, aes(x = dist)) +
-  geom_histogram(bins=20, fill='red') + 
-  ggpubr::theme_cleveland() +
-  labs(x= 'distribution', y='number of records')
-
-# conservation status plot
-ggplot(data = tetra_data, aes(x = status, fill=taxon)) +
-  geom_histogram(stat = 'count', show.legend = F) +
-  facet_grid(~taxon, scales = 'free') +
-  scale_fill_brewer(palette = 'Reds', direction = -1) +
-  ggpubr::theme_cleveland() +
-  labs(x= 'conservation status', y='number of records')
-
-```
-
-
+- **Plants**
 
 ```{r}
+#| label: plants-data
+#| eval: true
+#| message: false
+#| warning: false
 
-## plants
-dico_data <- left_join(observations_uy,
+plants_data <- left_join(observations_uy,
                         dico_traits %>% 
                          filter(!grepl('native', remarks))) %>%
   filter(!is.na(Distribution))
 
-plants_data <- dico_data %>% 
+plants_data <- plants_data %>% 
   mutate(distribution = case_when(Distribution <= 5 ~ 'narrow',
                                   Distribution > 5 & Distribution <= 16 ~ 'medium',
                                   Distribution > 16 ~ 'wide', 
@@ -507,6 +485,10 @@ First we transform the data, ordering the qualitative variables and scaling the 
 Then, we filter out users with less than 10 records. 
 
 ```{r}
+#| label: transform-data
+#| eval: true
+#| message: false
+#| warning: false
 
 tetrapods <- tetra_data %>% 
   group_by(user_login) %>% 
@@ -552,10 +534,10 @@ Summary of the data
 #| message: false
 #| warning: false
 
-bind_rows(tetrapods,plants) %>% nrow() # number of records
-bind_rows(tetrapods,plants) %>% distinct(taxon_species_name) %>% count  # number of species
-bind_rows(tetrapods,plants) %>% group_by(user_category) %>% count()
-bind_rows(tetrapods,plants) %>% distinct(user_login, .keep_all = T) %>% group_by(user_category) %>% count()
+# bind_rows(tetrapods,plants) %>% nrow() # number of records
+# bind_rows(tetrapods,plants) %>% distinct(taxon_species_name) %>% count  # number of species
+# bind_rows(tetrapods,plants) %>% group_by(user_category) %>% count()
+# bind_rows(tetrapods,plants) %>% distinct(user_login, .keep_all = T) %>% group_by(user_category) %>% count()
 
 tibble(Group = c('tetrapods', 'plants'),
        Users = c(nrow(tetrapods %>%
@@ -566,10 +548,69 @@ tibble(Group = c('tetrapods', 'plants'),
        Species = c(nrow(tetrapods %>%
                           distinct(taxon_species_name)),
                    nrow(plants %>%
-                        distinct(taxon_species_name)))) %>% janitor::adorn_totals() %>% 
+                        distinct(taxon_species_name)))) %>%
+  janitor::adorn_totals() %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
                   booktabs = T) %>% 
   kableExtra::kable_styling(latex_options = c('striped', 'hold_position'))
+```
+
+- Plots
+
+```{r}
+#| label: plot-transformed-data
+#| eval: true
+#| message: false
+#| warning: false
+
+##### TETRAPODS
+
+# size plot
+ggplot(data = tetrapods, aes(x = size, fill=taxon)) +
+  geom_histogram(position = 'identity', 
+                 bins = 15, show.legend = F) +
+  facet_grid(~taxon, scales = 'free') +
+  scale_fill_brewer(palette = 'Reds', direction = -1) +
+  ggpubr::theme_cleveland() +
+  labs(x= 'size', y='number of records')
+
+# distribution plot
+ggplot(data = tetrapods, aes(x = dist)) +
+  geom_histogram(bins=20, fill='red') + 
+  ggpubr::theme_cleveland() +
+  labs(x= 'distribution', y='number of records')
+
+# conservation status plot
+ggplot(data = tetrapods, aes(x = status, fill=taxon)) +
+  geom_histogram(stat = 'count', show.legend = F) +
+  facet_grid(~taxon, scales = 'free') +
+  scale_fill_brewer(palette = 'Reds', direction = -1) +
+  ggpubr::theme_cleveland() +
+  labs(x= 'conservation status', y='number of records')
+
+
+##### PLANTS
+# growth plot
+ggplot(data = plants, aes(x = growth, fill=taxon)) +
+  geom_histogram(stat = 'count', show.legend = F) +
+  facet_grid(~taxon, scales = 'free') +
+  scale_fill_brewer(palette = 'Greens', direction = -1) +
+  ggpubr::theme_cleveland() +
+  labs(x= 'growth form', y='number of records')
+
+# distribution plot
+ggplot(data = plants, aes(x = dist)) +
+  geom_histogram(bins=20, fill='green') + 
+  ggpubr::theme_cleveland() +
+  labs(x= 'distribution', y='number of records')
+
+# conservation status plot
+ggplot(data = plants, aes(x = status, fill=taxon)) +
+  geom_histogram(stat = 'count', show.legend = F) +
+  facet_grid(~taxon, scales = 'free') +
+  scale_fill_brewer(palette = 'Greens', direction = -1) +
+  ggpubr::theme_cleveland() +
+  labs(x= 'conservation status', y='number of records')
 ```
