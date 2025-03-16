@@ -51,3 +51,6 @@ rsconnect/
 # Folder
 tests
 .DS_Store
+
+/.quarto/
+/code/_draft
