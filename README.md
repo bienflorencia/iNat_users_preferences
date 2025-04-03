@@ -17,7 +17,4 @@ This study aimed to identify users' preferences for visibility, geographic distr
 
 ## CITATION
 
-> Grattarola F. (2024) A continental-wide decline of occupancy and diversity in five Neotropical carnivores. *Zenodo*. [10.5281/zenodo.13866885
-](https://doi.org/10.5281/zenodo.13866885). [Data/Code]
-
 > Montiel R., Carabio M., Bazzichetto M., Keil P., & Grattarola F. (2024) Beginners and expert citizen scientists prefer similar species on iNaturalist, but experts contribute on average almost a hundred times more data.
