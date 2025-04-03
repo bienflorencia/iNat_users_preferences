@@ -8,7 +8,6 @@ This study aimed to identify users' preferences for visibility, geographic distr
  
  
  ![](/figs/figure1.png)
- ![](/figs/figure2.png)
  
  ## LICENCE
 
