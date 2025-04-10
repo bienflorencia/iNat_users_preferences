@@ -6,7 +6,7 @@
 
 This study aimed to identify users' preferences for visibility, geographic distribution, and conservation status of the species being recorded, according to their level of experience on iNaturalist in Uruguay (NaturalistaUY). This repository (<https://github.com/Rodrigo-Montiel/iNat_users_preferences>) includes the data, code, model and outputs to reproduce our work. 
 
- **Explore the manuscript's [METHODS](https://bienflorencia.github.io/carpobrotus-uruguay/code/carpobrotus-uruguay-en.html)**.
+ **Explore the manuscript's [METHODS](https://bienflorencia.github.io/iNat_users_preferences/code/analyses.html)**.
 
  
  ![](/figs/figure1.png)
