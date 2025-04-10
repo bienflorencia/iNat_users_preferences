@@ -5,7 +5,9 @@
 *Rodrigo Montiel, Magdalena Carabio, Manuele Bazzichetto, Petr Keil & Florencia Grattarola <a dir="ltr" href="http://orcid.org/0000-0001-8282-5732" target="_blank"><img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="15"></a>*
 
 This study aimed to identify users' preferences for visibility, geographic distribution, and conservation status of the species being recorded, according to their level of experience on iNaturalist in Uruguay (NaturalistaUY). This repository (<https://github.com/Rodrigo-Montiel/iNat_users_preferences>) includes the data, code, model and outputs to reproduce our work. 
- 
+
+ **Explore the manuscript's [METHODS](https://bienflorencia.github.io/carpobrotus-uruguay/code/carpobrotus-uruguay-en.html)**.
+
  
  ![](/figs/figure1.png)
  
