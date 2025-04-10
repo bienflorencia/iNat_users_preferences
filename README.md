@@ -8,8 +8,10 @@ This study aimed to identify users' preferences for visibility, geographic distr
 
  **Explore the manuscript's [METHODS](https://bienflorencia.github.io/iNat_users_preferences/code/analyses.html)**.
 
+
  
  ![](/figs/figure1.png)
+
  
  ## LICENCE
 
