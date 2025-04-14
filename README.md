@@ -13,7 +13,7 @@ This study aimed to identify users' preferences for visibility, geographic distr
  ![](/figs/figure1.png)
 
  
- ## LICENCE
+## LICENCE
 
 **Data** are available under the terms of the Creative Commons Attribution 4.0 International licence CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/legalcode.en).   
 
