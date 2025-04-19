@@ -54,3 +54,5 @@ tests
 
 /.quarto/
 /code/_draft
+/data/_draft
+/figs/_draft
