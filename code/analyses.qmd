@@ -305,8 +305,8 @@ left_join(observations_uy, users_dataset %>%
 ```
 
   - Average number of records for a beginner = `r round(21498/824, 1)`  
-  - Average number of records for an intermediate = `round(30351/92, 1)`  
-  - Average number of records for an expert = `round(44808/20, 1)`  
+  - Average number of records for an intermediate = `r `round(30351/92, 1)`  
+  - Average number of records for an expert = `r `round(44808/20, 1)`  
 
 ## Species traits
 
@@ -349,10 +349,10 @@ dico <- species_list %>%
   group_by(taxon_family_name, taxon_species_name) %>% 
   count()
 
-# write_csv(dico,'data/dico_list.csv')
+# write_csv(plants,'data/dico_list.csv')
 ```
 
-Then, using the list of species, we conducted a literature search, at the national level, to identify the following traits for each species: *geographic distribution*, *conservation status* and *size* or *growth form* depending on whether it was an animal or a plant.
+Then, using the list of species, we conducted a literature search, at the national level, to identify the following traits for each species: *distribution area*, *conservation status* and *body size* or *growth form* depending on whether it was an animal or a plant.
 
 ```{r}
 #| label: read-species-traits
@@ -360,8 +360,8 @@ Then, using the list of species, we conducted a literature search, at the nation
 #| message: false
 #| warning: false
 
-tetra_traits <- read_csv('data/tetra_traits.csv')
-dico_traits <- read_csv('data/dico_traits.csv')
+tetrapods_traits <- read_csv('data/tetrapods_traits.csv')
+plants_traits <- read_csv('data/plants_traits.csv')
 ```
 
 We identified 33 tetrapod species and 52 plant species listed as non-native or domestic/cultivated (e.g. dog, horse, tobacco) in Uruguay, and discarded them from the analyses.
@@ -376,7 +376,7 @@ We identified 33 tetrapod species and 52 plant species listed as non-native or d
 #|  - 'Tetrapod species that were discarded'
 #|  - 'Plant species that were discarded'
 
-dico_traits %>% 
+plants_traits %>% 
   filter(grepl('non', remarks)) %>%
   distinct(taxon_family_name, taxon_species_name) %>% 
   arrange(taxon_family_name, taxon_species_name) %>% 
@@ -384,8 +384,8 @@ dico_traits %>%
   kableExtra::kable_styling(latex_options = c('striped', 'hold_position')) %>% 
   kableExtra::scroll_box(height = '300px')
 
-tetra_traits %>% 
-  filter(grepl('Casual', remarks)) %>%
+tetrapods_traits %>% 
+  filter(grepl('non', remarks)) %>%
   distinct(taxon_class_name, taxon_species_name) %>% 
   arrange(taxon_class_name, taxon_species_name) %>% 
   kableExtra::kbl(booktabs = T) %>% 
@@ -416,65 +416,16 @@ observations_dataset <- left_join(observations_uy,
 
 And then, we classify the quantitative traits using qualitative values.
 
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| **Trait**               | **Quantitative value**                                                      | **Qualitative value**      | **Criteria for qualitative value**                                                                                                        |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Geographic distribution | Number of departments where the species is recorded at (from a total of 19) | Narrow                     | Present in at least 5 departments                                                                                                         |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-|                         |                                                                             | Medium                     | Present in 6 to 16 departments                                                                                                            |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-|                         |                                                                             | Wide                       | Present in 17 or more departments                                                                                                         |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Size (tetrapods)        | Average body length of the species in centimetres                           | Small                      | Mammals \< 50cm                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Birds \< 20cm                                                                                                                             |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Reptiles \< 50cm                                                                                                                          |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Amphibians \< 5cm                                                                                                                         |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-|                         |                                                                             | Medium                     | Mammals \>= 50cm and \< 200cm                                                                                                             |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Birds \>= 20cm and \< 50 cm                                                                                                               |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Reptiles \>= 50cm and \< 100cm                                                                                                            |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Amphibians \>= 5cm and \< 10cm                                                                                                            |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-|                         |                                                                             | Large                      | Mammals \>= 200cm                                                                                                                         |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Birds \>= 50cm                                                                                                                            |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Reptiles \>= 100cm                                                                                                                        |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             |                            | Amphibians \>= 10cm                                                                                                                       |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Growth form             |                                                                             | Herb                       | Classification according to Darwinion [(Zuloaga et al., 2019)](https://www.zotero.org/google-docs/?fdJ2GE)                                |
-|                         |                                                                             |                            |                                                                                                                                           |
-| (plants)                |                                                                             | Vine                       |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Liana                      |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Subshrub                   |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Shrub                      |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Tree                       |                                                                                                                                           |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Conservation status     |                                                                             | Least concern (LC)         | Classification according to the International Union for Conservation of Nature [(IUCN, 2023)](https://www.zotero.org/google-docs/?VZMvVI) |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Near threatened (NT)       |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Vulnerable (VU)            |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Endangered (EN)            |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Critically endangered (CR) |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Not evaluated (NE)         |                                                                                                                                           |
-|                         |                                                                             |                            |                                                                                                                                           |
-|                         |                                                                             | Data deficient (DD)        |                                                                                                                                           |
-+-------------------------+-----------------------------------------------------------------------------+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| Trait                   | Quantitative value                                                          | Qualitative value                                                                                                                                           | Criteria for qualitative value                                                                                           |
+|-------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Distribution area       | Number of departments where the species is recorded at (from a total of 19) | Narrow                                                                                                                                                      | Present in at least 5 departments                                                                                        |
+|                         |                                                                             | Medium                                                                                                                                                      | Present in 6 to 16 departments                                                                                           |
+|                         |                                                                             | Wide                                                                                                                                                        | Present in 17 or more departments                                                                                        |
+| Body size (tetrapods)   | Average body length of the species in centimetres                           | Small                                                                                                                                                       | Mammals < 50cm<br>Birds < 20cm<br>Reptiles < 50cm<br>Amphibians < 5cm                                                    |
+|                         |                                                                             | Medium                                                                                                                                                      | Mammals >= 50cm and < 200cm<br>Birds >= 20cm and < 50 cm<br>Reptiles >= 50cm and < 100cm<br>Amphibians >= 5cm and < 10cm |
+|                         |                                                                             | Large                                                                                                                                                       | Mammals >= 200cm<br>Birds >= 50cm<br>Reptiles >= 100cm<br>Amphibians >= 10cm                                             |
+| Growth form<br>(plants) |                                                                             | Herb<br>Vine<br>Liana<br>Subshrub<br>Shrub<br>Tree                                                                                                          | Classification according to Darwinion (Zuloaga et al., 2019)                                                             |
+| Conservation status     |                                                                             | Least concern (LC)<br>Near threatened (NT)<br>Vulnerable (VU)<br>Endangered (EN)<br>Critically endangered (CR)<br>Not evaluated (NE)<br>Data deficient (DD) | Classification according to the International Union for Conservation of Nature (IUCN, 2023)                              |
 
 #### Tetrapods' traits
 
@@ -486,37 +437,37 @@ And then, we classify the quantitative traits using qualitative values.
 
 # tetrapods
 tetra_data <- left_join(observations_dataset, 
-                        tetra_traits %>% 
-                          filter(!grepl('Casual', remarks))) %>% 
-  filter(!is.na(Distribution)) %>% 
-  mutate(distribution = case_when(Distribution <= 5 ~ 'narrow',
-                                  Distribution > 5 & Distribution <= 16 ~ 'medium',
-                                  Distribution > 16 ~ 'wide', 
-                                  is.na(Distribution) ~ 'not assessed')) %>%
+                        tetrapods_traits %>% 
+                          filter(!grepl('non', remarks))) %>% 
+  filter(!is.na(distribution_area)) %>% 
+  mutate(distribution = case_when(distribution_area <= 5 ~ 'narrow',
+                                  distribution_area > 5 & distribution_area <= 16 ~ 'medium',
+                                  distribution_area > 16 ~ 'wide', 
+                                  is.na(distribution_area) ~ 'not assessed')) %>%
   mutate(size = case_when(taxon_class_name == 'Mammalia' & 
-                            Size < 50 ~ 'small',
+                            body_size < 50 ~ 'small',
                           taxon_class_name == 'Mammalia' & 
-                            Size >= 50 & Size < 200 ~ 'medium',
+                            body_size >= 50 & body_size < 200 ~ 'medium',
                           taxon_class_name == 'Mammalia' & 
-                            Size >= 200 ~ 'large',
+                            body_size >= 200 ~ 'large',
                           taxon_class_name == 'Amphibia' & 
-                            Size < 5 ~ 'small',
+                            body_size < 5 ~ 'small',
                           taxon_class_name == 'Amphibia' & 
-                            Size >= 5 & Size < 10 ~ 'medium',
+                            body_size >= 5 & body_size < 10 ~ 'medium',
                           taxon_class_name == 'Amphibia' & 
-                            Size >= 10 ~ 'large',
+                            body_size >= 10 ~ 'large',
                           taxon_class_name == 'Reptilia' & 
-                            Size < 50 ~ 'small',
+                            body_size < 50 ~ 'small',
                           taxon_class_name == 'Reptilia' & 
-                            Size >= 50 & Size < 100 ~ 'medium',
+                            body_size >= 50 & body_size < 100 ~ 'medium',
                           taxon_class_name == 'Reptilia' & 
-                            Size >= 100 ~ 'large',
+                            body_size >= 100 ~ 'large',
                           taxon_class_name == 'Aves' & 
-                            Size < 20 ~ 'small',
+                            body_size < 20 ~ 'small',
                           taxon_class_name == 'Aves' & 
-                            Size >= 20 & Size < 50 ~ 'medium',
+                            body_size >= 20 & body_size < 50 ~ 'medium',
                           taxon_class_name == 'Aves' & 
-                            Size >= 50 ~ 'large'))
+                            body_size >= 50 ~ 'large'))
 
 # write_csv(tetra_data, "data/tetra_data.csv")
 ```
@@ -530,14 +481,13 @@ tetra_data <- left_join(observations_dataset,
 #| warning: false
 
 plants_data <- left_join(observations_dataset,
-                        dico_traits %>% 
-                         filter(!grepl('native', remarks))) %>%
-  filter(!is.na(Distribution)) %>% 
-  mutate(distribution = case_when(Distribution <= 5 ~ 'narrow',
-                                  Distribution > 5 & Distribution <= 16 ~ 'medium',
-                                  Distribution > 16 ~ 'wide', 
-                                  is.na(Distribution) ~ 'not assessed')) %>% 
-  rename(growth_form = Habito1)
+                        plants_traits %>% 
+                         filter(!grepl('non', remarks))) %>%
+  filter(!is.na(distribution_area)) %>% 
+  mutate(distribution = case_when(distribution_area <= 5 ~ 'narrow',
+                                  distribution_area > 5 & distribution_area <= 16 ~ 'medium',
+                                  distribution_area > 16 ~ 'wide', 
+                                  is.na(distribution_area) ~ 'not assessed')) 
 
 # write_csv(dico_data, "data/dico_data.csv")
 ```
@@ -560,13 +510,13 @@ tetrapods <- tetra_data %>%
                          levels = c('expert',
                                     'intermediate',
                                     'beginner'))) %>% 
-  mutate(status = factor(IUCNglobal, 
+  mutate(status = factor(conservation_status, 
                          levels = c('CR','EN','VU', 
                                     'NT', 'DD', 'NE', 
                                     'LC'))) %>% 
   select(ranking, 
          dist_class=distribution, size_class=size,
-         dist=Distribution, size=Size, 
+         dist=distribution_area, size=body_size, 
          status, taxon=taxon_class_name,
          state=place_state_name,
          user_category, user_login, taxon_species_name,
@@ -583,7 +533,7 @@ plants <- plants_data %>%
                          levels = c('expert',
                                     'intermediate',
                                     'beginner'))) %>% 
-  mutate(status = factor(IUCNglobal,
+  mutate(status = factor(conservation_status,
                          levels = c('CR','EN','VU', 
                                     'NT', 'DD', 'NE', 
                                     'LC')),
@@ -591,7 +541,7 @@ plants <- plants_data %>%
                          levels = c('herb', 'vine', 
                                     'liana', 'subshrub',
                                     'shrub', 'tree'))) %>% 
-  select(ranking, dist=Distribution, 
+  select(ranking, dist=distribution_area, 
          dist_class = distribution, growth, 
          status, taxon=taxon_family_name,
          state=place_state_name,
@@ -604,7 +554,7 @@ plants <- plants_data %>%
 
 ### Average of species-variable per user
 
-And finish up with aggregating records per user and computing the mean and SD of the values of the two traits. For tetrapods *geographic distribution* and *size*, and for plants *geographic distribution*.
+And finish up with aggregating records per user and computing the mean and SD of the values of the two traits. For tetrapods *distribution area* and *body size*, and for plants *distribution area*.
 
 ```{r}
 
@@ -758,17 +708,20 @@ plants %>%
 #| message: false
 #| warning: false
 #| tbl-cap: 
-#|  - 'Classification of species by geographic distribution'
-#|  - "Species' geographic distribution by user category"
+#|  - 'Classification of species by distribution area'
+#|  - "Species' distribution area by user category"
 #|  - 'Classification of species by size'
 #|  - "Species' size by user category"
 #|  - 'Classification of species by conservation status'
 #|  - "Species' conservation status by user category"
 
 tetrapods %>% 
-    group_by(dist_class) %>% 
-    summarise(n = n()) %>% 
-    mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+  group_by(dist_class) %>% 
+  summarise(n = n()) %>% 
+  mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+  rename(`distribution area` = dist_class,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -791,6 +744,9 @@ tetrapods %>%
     group_by(size_class) %>% 
     summarise(n = n()) %>% 
     mutate(freq = scales::label_percent(accuracy=1)(n/sum(n)))%>% 
+    rename(`body size` = size_class,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -813,6 +769,9 @@ tetrapods %>%
     group_by(status) %>% 
     summarise(n = n()) %>% 
     mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+      rename(`conservation satus` = status,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -840,8 +799,8 @@ tetrapods %>%
 #| message: false
 #| warning: false
 #| tbl-cap: 
-#|  - 'Classification of species by geographic distribution'
-#|  - "Species' geographic distribution by user category"
+#|  - 'Classification of species by distribution area'
+#|  - "Species' distribution area by user category"
 #|  - 'Classification of species by size'
 #|  - "Species' size by user category"
 #|  - 'Classification of species by conservation status'
@@ -853,6 +812,9 @@ plants %>%
     group_by(dist_class) %>% 
     summarise(n = n()) %>% 
     mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+  rename(`distribution area` = dist_class,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -875,6 +837,9 @@ plants %>%
     group_by(growth) %>% 
     summarise(n = n()) %>% 
     mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+    rename(`growth form` = growth,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -896,7 +861,10 @@ plants %>%
 plants %>% 
     group_by(status) %>% 
     summarise(n = n()) %>% 
-    mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>% 
+    mutate(freq = scales::label_percent(accuracy=1)(n/sum(n))) %>%
+  rename(`conservation status` = status,
+         `observations` = n,
+         `%` = freq) %>% 
   kableExtra::kbl(format.args = list(decimal.mark = '.', 
                                      big.mark = ","),
                   digits=2,
@@ -926,6 +894,7 @@ plants %>%
 #| eval: true
 #| message: false
 #| warning: false
+#| out-width: 100%
 
 data_sf <- bind_rows(tetrapods,plants) %>% 
   sf::st_as_sf(coords=c('longitude', 'latitude')) %>% 
@@ -935,7 +904,6 @@ data_sf <- bind_rows(tetrapods,plants) %>%
                                           'Asteraceae', 'Cactaceae',
                                           'Fabaceae', 'Solanaceae')))
 
-uruguay <- rnaturalearth::ne_countries(country = 'uruguay', scale=50)
 uruguay_dptos <- readRDS('data/Uruguay.rds') %>% st_transform(4326)
 
 argentina <- rnaturalearth::ne_countries(country = 'argentina', scale=50)
@@ -943,7 +911,7 @@ brazil <- rnaturalearth::ne_countries(country = 'brazil', scale=50)
 southamerica <- rnaturalearth::ne_countries(continent = 'south america', scale=50)
 
 ggplot() +
-  geom_sf(data=uruguay, fill='white') +
+  geom_sf(data=uruguay_dptos, fill='white') +
   geom_sf(data=argentina, fill='grey85') +
   geom_sf(data=brazil, fill='grey90') +
   geom_sf(data=data_sf %>% filter(taxon %in% c('Amphibia',
@@ -963,12 +931,12 @@ ggplot() +
 
 southamerica_map <- ggplot() +
   geom_sf(data=southamerica, fill='grey95', col='grey45') +
-  geom_sf(data=uruguay, fill='red') +
+  geom_sf(data=st_union(uruguay_dptos), fill='red') +
   coord_sf(xlim = c(-85, -32), ylim = c(-60, 15), expand = FALSE) +
   theme_void()
 
 tetra_map <- ggplot() +
-  geom_sf(data=uruguay, fill='white') +
+  geom_sf(data=uruguay_dptos, fill='white') +
   geom_sf(data=argentina, fill='grey85') +
   geom_sf(data=brazil, fill='grey90') +
   geom_sf(data=data_sf %>% filter(taxon %in% c('Amphibia',
@@ -984,7 +952,7 @@ tetra_map <- ggplot() +
 
 
 plants_map <- ggplot() +
-  geom_sf(data=uruguay, fill='white') +
+  geom_sf(data=uruguay_dptos, fill='white') +
   geom_sf(data=argentina, fill='grey85') +
   geom_sf(data=brazil, fill='grey90') +
   geom_sf(data=data_sf %>% filter(taxon %in% c('Asteraceae',
@@ -999,83 +967,9 @@ plants_map <- ggplot() +
 
 southamerica_map | tetra_map | plants_map
 
-ggsave(file='figs/observations_maps.svg',
-       plot=(southamerica_map | tetra_map | plants_map),
-       width=12, height=5, dpi = 100)
-```
-
-<!-- #### Dots -->
-
-```{r}
-#| label: plot-maps-dots
-#| eval: false
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-dpi: 100
-
-uruguay_dptos <- readRDS('data/Uruguay.rds') %>% st_transform(4326)
- 
-# tetrapods_sf <- tetrapods %>% 
-#   st_as_sf(coords = c("longitude", "latitude")) %>% 
-#     st_set_crs(4326) %>% 
-#     st_transform(32721)
-
-# map_dots_tetrapods <- tm_graticules(alpha = 0.3) +
-#   tm_shape(uruguay) +
-#     tm_fill(col='grey99') +
-#     tm_shape(tetrapods_sf) +
-#     tm_dots(col='user_category', alpha = 0.8, size = 0.15, title = 'User category') +
-#     tm_shape(uruguay) +
-#     tm_borders(col='grey60', alpha = 0.4) +
-#     tm_layout(legend.outside = T,  title = 'Tetrapods')
-
-map_dots_tetrapods <- ggplot() +
-  geom_sf(data=uruguay, fill='white') +
-  geom_sf(data=argentina, fill='grey85') +
-  geom_sf(data=brazil, fill='grey90') +
-  geom_sf(data=data_sf %>% filter(taxon %in% c('Amphibia',
-                                               'Aves',
-                                               'Mammalia',
-                                               'Reptilia')), 
-          aes(col=user_category)) +
-  # scale_color_brewer(palette = 'Paired') +
-  scale_color_manual(values = RColorBrewer::brewer.pal(n = 8, name = "Paired")[7:9]) +
-  coord_sf(xlim = c(-59, -52.5), ylim = c(-35.5, -29.5), expand = FALSE) +
-  theme_bw() + labs(col='', subtitle = 'User category') +
-  theme(legend.position = 'bottom')             
-
-
-# plants_sf <- plants %>% 
-#   st_as_sf(coords = c("longitude", "latitude")) %>% 
-#     st_set_crs(4326) %>% 
-#     st_transform(32721)
-
-# map_dots_plants <- tm_graticules(alpha = 0.3) +
-#   tm_shape(uruguay) +
-#     tm_fill(col='grey99') +
-#     tm_shape(plants_sf) +
-#     tm_dots(col='user_category', alpha = 0.8, size = 0.15, title = 'User category') +
-#     tm_shape(uruguay) +
-#     tm_borders(col='grey60', alpha = 0.4) +
-#     tm_layout(legend.outside = T,  title = 'Plants')
-
-map_dots_plants <- ggplot() +
-  geom_sf(data=uruguay, fill='white') +
-  geom_sf(data=argentina, fill='grey85') +
-  geom_sf(data=brazil, fill='grey90') +
-  geom_sf(data=data_sf %>% filter(taxon %in% c('Asteraceae',
-                                               'Cactaceae',
-                                               'Fabaceae',
-                                               'Solanaceae')), 
-          aes(col=user_category)) +
-  scale_color_brewer(palette = 'Paired') +
-  coord_sf(xlim = c(-59, -52.5), ylim = c(-35.5, -29.5), expand = FALSE) +
-  theme_bw() + labs(col='', subtitle = 'User category') +
-  theme(legend.position = 'bottom')  
-
-# map_dots_tetrapods | map_dots_plants
-
+# ggsave(file='figs/observations_maps.svg',
+#        plot=(southamerica_map | tetra_map | plants_map),
+#        width=12, height=5, dpi = 100)
 ```
 
 #### Spatial coverage (grids)
@@ -1088,12 +982,13 @@ map_dots_plants <- ggplot() +
 #| tbl-cap: 'Percentage of geographic coverage by user category'
 #| fig-dpi: 100
 
+# create grid
 uruguay_grid <- st_make_grid(st_union(uruguay_dptos), 0.1) %>%
   st_intersection(st_union(uruguay_dptos)) %>% 
   st_sf(grid_id=1:length(.), geometry= .) %>% 
   st_make_valid() %>% st_cast() 
 
-
+# convert observations to an sf object
 observations_dataset_sf <- observations_dataset %>% 
   sf::st_as_sf(coords=c('longitude', 'latitude')) %>% 
   sf::st_set_crs(4326) %>% 
@@ -1127,12 +1022,17 @@ beginner_grid <- st_join(uruguay_grid,
   st_cast()
 
 
-coverage <- tibble(experts = expert_grid %>% st_drop_geometry() %>% 
-                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% pull,
-                   intermediates =  intermediate_grid %>% st_drop_geometry() %>%
-                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% pull,
+coverage <- tibble(experts = expert_grid %>% 
+                     st_drop_geometry() %>% 
+                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% 
+                     pull,
+                   intermediates =  intermediate_grid %>%
+                     st_drop_geometry() %>%
+                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% 
+                     pull,
                    beginners = beginner_grid %>% st_drop_geometry() %>%
-                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% pull)
+                     summarise(coverage=sum(n_observations>0) * 100 / n()) %>% 
+                     pull)
 
 experts_map <- tm_graticules(alpha = 0.3) +
   tm_shape(expert_grid %>% 
@@ -1226,6 +1126,8 @@ coverage %>%
 #| eval: true
 #| message: false
 #| warning: false
+#| out-width: 100%
+#| fig-height: 3
 
 ##### TETRAPODS
 
@@ -1239,7 +1141,7 @@ tetra_plot_distribution <- tetrapods %>%
   labs(x='', y='Proportion of records', fill = 'distribution') + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = 'OrRd') + 
+  scale_fill_brewer(palette = 'OrRd', name='distribution area') + 
  ggpubr::theme_pubclean() + theme(legend.position = 'bottom') +
   ggtitle('(a)') 
 
@@ -1253,7 +1155,7 @@ tetra_plot_size <- tetrapods %>%
   labs(x='', y='', fill = 'size') + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = 'OrRd') + 
+  scale_fill_brewer(palette = 'OrRd', name='body size') + 
   ggpubr::theme_pubclean() + theme(legend.position = 'bottom')  +
   ggtitle('(b)') 
 
@@ -1272,8 +1174,13 @@ tetra_plot_status <- tetrapods %>%
   ggpubr::theme_pubclean() + theme(legend.position = 'bottom')  +
   ggtitle('(c)') 
 
-tetra_plot_distribution | tetra_plot_size | tetra_plot_status
+tetra_plots <- tetra_plot_distribution | tetra_plot_size | tetra_plot_status
 
+tetra_plots
+
+# ggsave(tetra_plots, dpi = 100, 
+#        width = 18, height = 7, scale = 0.8,
+#        file = 'figs/Figure_4.svg')
 
 ##### PLANTS
 
@@ -1287,7 +1194,7 @@ plants_plot_distribution <- plants %>%
   labs(x='', y='Proportion of records', fill = 'distribution') + 
   facet_grid(~ factor(user_category, 
                       levels = c('beginner', 'intermediate', 'expert'))) + 
-  scale_fill_brewer(palette = 'Greens') + 
+  scale_fill_brewer(palette = 'Greens', name='distribution area') + 
  ggpubr::theme_pubclean() + theme(legend.position = 'bottom') +
   ggtitle('(a)') 
 
@@ -1308,7 +1215,7 @@ plants_plot_growth <- plants %>%
   geom_bar(width = 0.5, stat = "identity", show.legend = TRUE, position = "fill") + 
   labs(x = "", y = "", fill = "growth form") + 
   facet_grid(~ user_category) + 
-  scale_fill_brewer(palette = 'Greens') + 
+  scale_fill_brewer(palette = 'Greens', name='growth form') + 
  ggpubr::theme_pubclean() + theme(legend.position = 'bottom') +
   ggtitle('(b)') 
 
@@ -1327,7 +1234,14 @@ plants_plot_status <- plants %>%
   ggpubr::theme_pubclean() + theme(legend.position = 'bottom') +
   ggtitle('(c)') 
 
-plants_plot_distribution | plants_plot_growth | plants_plot_status
+
+plants_plots <- plants_plot_distribution | plants_plot_growth | plants_plot_status
+
+plants_plots
+
+# ggsave(plants_plots, dpi = 100, 
+#        width = 18, height = 7, scale = 0.8,
+#        file = 'figs/Figure_5.svg')
 ```
 
 ```{r}
@@ -1335,11 +1249,13 @@ plants_plot_distribution | plants_plot_growth | plants_plot_status
 #| eval: true
 #| message: false
 #| warning: false
+#| out-width: 100%
+#| fig-height: 10
 
 ##### TETRAPODS
 
 # size plot
-ggplot(data = tetrapods, aes(x = size, fill=taxon)) +
+supp_size_plot <- ggplot(data = tetrapods, aes(x = size, fill=taxon)) +
   geom_histogram(position = 'identity', 
                  bins = 15, show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
@@ -1349,18 +1265,17 @@ ggplot(data = tetrapods, aes(x = size, fill=taxon)) +
   ggtitle('(a)')
 
 # distribution plot
-# size plot
-ggplot(data = tetrapods, aes(x = dist, fill=taxon)) +
+supp_distribution_plot <- ggplot(data = tetrapods, aes(x = dist, fill=taxon)) +
   geom_histogram(position = 'identity', 
                  bins = 15, show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
   scale_fill_brewer(palette = 'Reds', direction = -1) +
   ggpubr::theme_pubclean() +
-  labs(x= 'geographic distribution', y='number of records') + 
+  labs(x= 'distribution area', y='number of records') + 
   ggtitle('(b)')
 
 # conservation status plot
-ggplot(data = tetrapods, aes(x = status, fill=taxon)) +
+supp_status_plot <- ggplot(data = tetrapods, aes(x = status, fill=taxon)) +
   geom_histogram(stat = 'count', show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
   scale_fill_brewer(palette = 'Reds', direction = -1) +
@@ -1368,35 +1283,54 @@ ggplot(data = tetrapods, aes(x = status, fill=taxon)) +
   labs(x= 'conservation status', y='number of records') + 
   ggtitle('(c)')
 
+supp_tetra_plots <- supp_size_plot / supp_distribution_plot / supp_status_plot
+
+supp_tetra_plots
+
+# ggsave(supp_tetra_plots, dpi = 100,
+#        width = 10, height = 15, scale = 0.8,
+#        file = 'figs/Figure_S2.svg')
+
 
 ##### PLANTS
+
 # growth plot
-ggplot(data = plants, aes(x = growth, fill=taxon)) +
+supp_growth_plot <- ggplot(data = plants, aes(x = growth, fill=taxon)) +
   geom_histogram(stat = 'count', show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
   scale_fill_brewer(palette = 'Greens', direction = -1) +
   ggpubr::theme_pubclean() +
   labs(x= 'growth form', y='number of records') + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle('(a)')
 
 # distribution plot
-ggplot(data = plants, aes(x = dist, fill=taxon)) +
+supp_distribution_plot <- ggplot(data = plants, aes(x = dist, fill=taxon)) +
   geom_histogram(position = 'identity', 
                  bins = 15, show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
   scale_fill_brewer(palette = 'Greens', direction = -1) +
   ggpubr::theme_pubclean() +
-  labs(x= 'geographic distribution', y='number of records') + 
+  labs(x= 'distribution area', y='number of records') + 
   ggtitle('(b)')
 
 # conservation status plot
-ggplot(data = plants, aes(x = status, fill=taxon)) +
+supp_status_plot <- ggplot(data = plants, aes(x = status, fill=taxon)) +
   geom_histogram(stat = 'count', show.legend = F) +
   facet_wrap(taxon~., scales = 'free', ncol = 4) +
   scale_fill_brewer(palette = 'Greens', direction = -1) +
   ggpubr::theme_pubclean() +
   labs(x= 'conservation status', y='number of records') + 
   ggtitle('(c)')
+
+
+supp_plants_plots <- supp_growth_plot / supp_distribution_plot / supp_status_plot
+
+supp_plants_plots
+
+# ggsave(supp_plants_plots, dpi = 100,
+#        width = 10, height = 15, scale = 0.8,
+#        file = 'figs/Figure_S3.svg')
 ```
 
 ## Statistical analyses
@@ -1408,7 +1342,7 @@ ggplot(data = plants, aes(x = status, fill=taxon)) +
 ```{r}
 #| label: stats-tetrapods-h1
 #| eval: true
-
+#| out-width: 100%
 
 mod_tetra <- lm(ranking ~ dist_scaled + size_scaled + status,
                 data = tetrapods)
@@ -1426,6 +1360,8 @@ plot(predictorEffect(predictor = 'size_scaled', mod = mod_tetra))
 ```{r}
 #| label: stats-tetrapods-h2
 #| eval: true
+#| out-width: 100%
+#| fig-height: 5
 
 tapply(tetrapods$dist, INDEX = tetrapods$user_category, mean)
 tapply(tetrapods$dist, INDEX = tetrapods$user_category, sd)
@@ -1515,7 +1451,7 @@ stargazer(mod_tetra, mod_tetra_user_mean, mod_tetra_user_sd,
 ```{r}
 #| label: stats-plants-h1
 #| eval: true
-
+#| out-width: 100%
 
 mod_plants <- lm(ranking ~ dist_scaled + growth + status, 
                 data = plants)
@@ -1531,6 +1467,8 @@ plot(predictorEffect(predictor = 'dist_scaled', mod = mod_plants))
 ```{r}
 #| label: stats-plants-h2
 #| eval: true
+#| out-width: 100%
+#| fig-height: 5
 
 tapply(plants$dist, INDEX = plants$user_category, mean)
 tapply(plants$dist, INDEX = plants$user_category, sd)
@@ -1576,7 +1514,6 @@ plot_pred_sd_dist <- ggplot(data = pred_mod_plants_user_sd$sd_dist,
   ggpubr::theme_classic2()
 
 plot_pred_mean_dist | plot_pred_sd_dist
-
 ```
 
 ### Models' summary
